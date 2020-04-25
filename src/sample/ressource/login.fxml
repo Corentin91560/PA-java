@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LoginController">
+    <top>
+        <Label text="Connection panel" textAlignment="CENTER" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Arial" size="50.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets top="20.0" />
+            </BorderPane.margin></Label>
+    </top>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextField id="login_tf" fx:id="login_tf" promptText="ex : test@test.com" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="100.0" />
+                <PasswordField fx:id="password_tf" onKeyPressed="#confirmation" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0" />
+                <Label text="Login" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
+                <Label text="Password" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+            </children>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#connect" text="Connect" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20.0" />
+            </BorderPane.margin></Button>
+    </bottom>
+</BorderPane>

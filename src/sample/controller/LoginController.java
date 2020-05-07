@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import sample.Class.User;
 import sample.api.ApiCaller;
 
+import java.net.HttpURLConnection;
 import java.util.Optional;
 
 public class LoginController {
@@ -26,30 +27,31 @@ public class LoginController {
         try {
 
             ApiCaller caller = ApiCaller.getInstance();
-            System.out.println("login"+login_tf.getText());
+            User resultconn = caller.signInUser(currentUser);
+            if (resultconn.getError()==null){
 
-            if (caller.signInUser(currentUser) == 200) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                System.out.println(actionEvent);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Welcome " + currentUser.getLogin());
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        ChangeSceneController controller = new ChangeSceneController();
-                        controller.changeScene("../ressource/home.fxml", actionEvent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    System.out.println(actionEvent);
+                    alert.setTitle("Confirmation Dialog");
+                    alert.setHeaderText("Welcome " + currentUser.getLogin());
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        try {
+                            ChangeSceneController controller = new ChangeSceneController();
+                            controller.changeScene("../ressource/home.fxml", actionEvent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("nop");
                     }
-                } else {
-                    System.out.println("nop");
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            }else{
+                Alert alerterror = new Alert(Alert.AlertType.INFORMATION);
                 System.out.println(actionEvent);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("password ou login invalide ");
-                alert.showAndWait();
+                alerterror.setTitle("Confirmation Dialog");
+                alerterror.setHeaderText(currentUser.getError());
+                alerterror.showAndWait();
             }
 
 
@@ -62,5 +64,5 @@ public class LoginController {
             System.out.println(e);
         }
     }
-    
+
 }

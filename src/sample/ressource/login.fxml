@@ -23,7 +23,7 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <TextField id="login_tf" fx:id="login_tf" promptText="ex : test@test.com" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="100.0" />
-                <PasswordField fx:id="password_tf" onKeyPressed="#confirmation" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0" />
+                <PasswordField fx:id="password_tf" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0" />
                 <Label text="Login" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
                 <Label text="Password" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
             </children>

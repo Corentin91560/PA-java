@@ -1,14 +1,10 @@
 package sample.api;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
+import org.json.JSONTokener;
 import sample.Class.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,30 +26,52 @@ public class ApiCaller {
 
     }
 
-    public int signInUser(User user){
-        HttpURLConnection con;
-        String url = apiPath+"signin";
+    public User signInUser(User user){
+
         try {
+        String jsonInputString = "{\"login\": \""+user.getLogin()+"\", \"password\": \""+user.getPassword()+"\"}";
+        URL url = new URL(apiPath+"signin/admin");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            URL myurl = new URL(url);
-            con = (HttpURLConnection) myurl.openConnection();
 
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type","application/json");
+            conn.setConnectTimeout(5000);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("POST");
 
-            JSONObject object = new JSONObject();
-            object.put("login",user.getLogin());
-            object.put("password",user.getPassword());
-            OutputStream os = con.getOutputStream();
-            os.write(object.toString().getBytes("UTF-8"));
+            OutputStream os = conn.getOutputStream();
+            os.write(jsonInputString.getBytes("UTF-8"));
             os.close();
+            if (conn.getResponseCode()==200 ){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                //print response
+                System.out.println(response.toString());
+                JSONObject myResponse = new JSONObject(response.toString());
+                user.setEmail(myResponse.getString("email"));
+                user.setIda(myResponse.getInt("ida"));
 
-            return con.getResponseCode();
+                conn.disconnect();
+
+                return user;
+            }else if(conn.getResponseCode()==401){
+                user.setError("Login or password is incorrect");
+                return user;
+            }
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
         }
-        return 500;
+        return null;
     }
 }

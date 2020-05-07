@@ -1,7 +1,6 @@
 package sample.api;
 
 import org.json.JSONObject;
-import org.json.JSONTokener;
 import sample.Class.User;
 
 import java.io.*;
@@ -29,9 +28,9 @@ public class ApiCaller {
     public User signInUser(User user){
 
         try {
-        String jsonInputString = "{\"login\": \""+user.getLogin()+"\", \"password\": \""+user.getPassword()+"\"}";
-        URL url = new URL(apiPath+"signin/admin");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            String jsonInputString = "{\"login\": \""+user.getLogin()+"\", \"password\": \""+user.getPassword()+"\"}";
+            URL url = new URL(apiPath+"signin/admin");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 
             conn.setConnectTimeout(5000);
@@ -68,9 +67,11 @@ public class ApiCaller {
 
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            user.setError("Internal error");
+            return user;
         } catch (IOException e) {
-            e.printStackTrace();
+            user.setError("Internal server error");
+            return user;
         }
         return null;
     }

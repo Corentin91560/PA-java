@@ -6,12 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import sample.Class.User;
 import sample.api.ApiCaller;
 
-import java.net.HttpURLConnection;
 import java.util.Optional;
 
 public class LoginController {

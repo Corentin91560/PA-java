@@ -6,15 +6,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import sample.Class.User;
 import sample.api.ApiCaller;
 
-import java.net.HttpURLConnection;
 import java.util.Optional;
 
 public class LoginController {
+
+    public static User currentUser;
 
     @FXML
     private TextField login_tf;
@@ -22,18 +21,18 @@ public class LoginController {
 
 
     public void connect(ActionEvent actionEvent) {
-        User currentUser = new User(login_tf.getText(), password_tf.getText());
+        User tryUser = new User(login_tf.getText(), password_tf.getText());
 
         try {
 
             ApiCaller caller = ApiCaller.getInstance();
-            User resultconn = caller.signInUser(currentUser);
-            if (resultconn.getError()==null){
+            setCurrentUser(caller.signInUser(tryUser));
+            if (currentUser.getError()==null){
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     System.out.println(actionEvent);
                     alert.setTitle("Confirmation Dialog");
-                    alert.setHeaderText("Welcome " + currentUser.getLogin());
+                    alert.setHeaderText("Welcome " + getCurrentUser().getLogin());
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
                         try {
@@ -50,7 +49,7 @@ public class LoginController {
                 Alert alerterror = new Alert(Alert.AlertType.INFORMATION);
                 System.out.println(actionEvent);
                 alerterror.setTitle("Confirmation Dialog");
-                alerterror.setHeaderText(currentUser.getError());
+                alerterror.setHeaderText(tryUser.getError());
                 alerterror.showAndWait();
             }
 
@@ -63,6 +62,13 @@ public class LoginController {
             alert.showAndWait();
             System.out.println(e);
         }
+    }
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
 }

@@ -1,39 +1,48 @@
 package sample.Class;
 
 public class User {
-    String login;
-    String password;
-    int ida;
-    String email;
-    String error;
+int idu;
+String name;
+String firstname;
+String email;
+String phone;
+String profilpicture;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    public User(String login, String password, int ida, String email,String error) {
-        this.login = login;
-        this.password = password;
-        this.ida = ida;
+    public User(int idu, String name, String firstname, String email, String phone, String profilpicture) {
+        this.idu = idu;
+        this.name = name;
+        this.firstname = firstname;
         this.email = email;
-        this.error = error;
+        this.phone = phone;
+        this.profilpicture = profilpicture;
     }
 
-    public String getError() {
-        return error;
+    public User(int idu) {
+        this.idu = idu;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public int getIdu() {
+        return idu;
     }
 
-    public int getIda() {
-        return ida;
+    public void setIdu(int idu) {
+        this.idu = idu;
     }
 
-    public void setIda(int ida) {
-        this.ida = ida;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getEmail() {
@@ -44,19 +53,30 @@ public class User {
         this.email = email;
     }
 
-    public String getLogin() {
-        return login;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getProfilpicture() {
+        return profilpicture;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setProfilpicture(String profilpicture) {
+        this.profilpicture = profilpicture;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "idu=" + idu +
+                ", name='" + name + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

@@ -12,7 +12,6 @@ public class ChangeSceneController {
     public void changeScene(String fxmlfile, ActionEvent actionEvent){
 
         try {
-            System.out.println(getClass().getResource(fxmlfile));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlfile));
             Parent root = (Parent) fxmlLoader.load();
             //<editor-fold desc="change scene from current stage">

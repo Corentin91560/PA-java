@@ -6,30 +6,43 @@ public class Feedback {
     String content;
     String date;
     String status;
+    int note;
     int idas;
     int ida;
     int idu;
     String plateform;
 
-    public Feedback(int idfe, String title, String content, String date, String status, int idas, int ida, int idu,String plateform) {
-        this.idfe = idfe;
-        this.title = title;
+    public Feedback(String content, String date, int note, String plateform,int idu) {
         this.content = content;
         this.date = date;
-        this.status = status;
-        this.idas = idas;
-        this.ida = ida;
+        this.note = note;
+        this.plateform = plateform;
         this.idu = idu;
+    }
+
+    public Feedback(String content, String date, int note, int idas, String plateform) {
+        this.content = content;
+        this.date = date;
+        this.note = note;
+        this.idas = idas;
         this.plateform = plateform;
     }
 
-    public Feedback(int idfe, String title, String content, String date, String status,String plateform) {
+    public Feedback(int idfe, String title, String content, String date, String status, String plateform) {
         this.idfe = idfe;
         this.title = title;
         this.content = content;
         this.date = date;
         this.status = status;
         this.plateform = plateform;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
     }
 
     public String getPlateform() {
@@ -64,7 +77,7 @@ public class Feedback {
         this.content = content;
     }
 
-    public  String getDate() {
+    public String getDate() {
         return date;
     }
 

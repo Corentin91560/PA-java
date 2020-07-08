@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #DDDDDD;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LoginController">
     <top>
-        <Label text="Connection panel" textAlignment="CENTER" BorderPane.alignment="CENTER">
+        <Label text="Admin BENEVENT" textAlignment="CENTER" BorderPane.alignment="CENTER">
             <font>
                 <Font name="Arial" size="50.0" />
             </font>
@@ -22,15 +22,19 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField id="login_tf" fx:id="login_tf" promptText="ex : test@test.com" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="100.0" />
-                <PasswordField fx:id="password_tf" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0" />
-                <Label text="Login" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
-                <Label text="Password" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+                <TextField id="login_tf" fx:id="login_tf" layoutX="337.0" layoutY="76.0" promptText="ex : test@test.com" AnchorPane.leftAnchor="337.0" AnchorPane.topAnchor="76.0" />
+                <PasswordField fx:id="password_tf" layoutX="337.0" layoutY="176.0" AnchorPane.leftAnchor="337.0" AnchorPane.topAnchor="176.0" />
+                <Label layoutX="87.0" layoutY="76.0" text="Login" AnchorPane.leftAnchor="87.0" AnchorPane.topAnchor="76.0" />
+                <Label layoutX="87.0" layoutY="176.0" text="Mot de passe" AnchorPane.leftAnchor="87.0" AnchorPane.topAnchor="176.0" />
+            <Label fx:id="labelerror" alignment="CENTER" layoutX="167.0" layoutY="236.0" text="Login ou mot de passe incorrecte" textFill="RED" underline="true" visible="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
             </children>
         </AnchorPane>
     </center>
     <bottom>
-        <Button mnemonicParsing="false" onAction="#connect" text="Connect" BorderPane.alignment="CENTER">
+        <Button mnemonicParsing="false" onAction="#connect" text="Connexion" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="20.0" />
             </BorderPane.margin></Button>

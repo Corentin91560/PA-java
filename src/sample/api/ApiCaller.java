@@ -2,6 +2,8 @@ package sample.api;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import sample.Class.Admin;
+import sample.Class.Association;
 import sample.Class.Feedback;
 import sample.Class.User;
 
@@ -30,41 +32,136 @@ public class ApiCaller {
 
     public String validatebug(Feedback feedback){
         try{
-            String jsonInputString = "{\"idfe\": "+feedback.getIdfe()+"}";
-            System.out.println(jsonInputString);
-            URL url = new URL(apiPath+"feedbackvalide");
+            URL url = new URL(apiPath+"feedback/"+feedback.getIdfe());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setConnectTimeout(5000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("PUT");
 
-            OutputStream os = conn.getOutputStream();
-            os.write(jsonInputString.getBytes("UTF-8"));
-            os.close();
-            System.out.println(conn.getResponseCode());
             if (conn.getResponseCode()==200 ){
                 return "ok";
             }else {
                 return "server "+conn.getResponseCode();
             }
 
-
         } catch (MalformedURLException e) {
-            System.out.println(e);
             return "server error2";
         } catch (IOException e) {
-            System.out.println(e);
             return "server error3";
         }
     }
+    public User getUserInfo(int iduser){
+        User user = new User(iduser);
 
-    public User signInUser(User user){
+        try{
+            URL url = new URL(apiPath+"user/"+iduser);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+
+            if (conn.getResponseCode()==200 ){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                //print response
+                JSONObject myResponse = new JSONObject(response.toString());
+                if (myResponse.get("phone")!=JSONObject.NULL){
+                    user.setPhone(myResponse.getString("phone"));
+                }else{
+                    user.setPhone("Non Renseigné");
+                }
+                if (myResponse.get("profilpicture")!=JSONObject.NULL){
+                    user.setProfilpicture(myResponse.getString("profilpicture"));
+                }else{
+                    user.setProfilpicture("file:../ressource/images.jpg");
+                }
+                user.setEmail(myResponse.getString("email"));
+                user.setFirstname(myResponse.getString("firstname"));
+                user.setName(myResponse.getString("name"));
+                user.setIdu(myResponse.getInt("idu"));
+
+
+                conn.disconnect();
+                return user;
+            }else if(conn.getResponseCode()==401){
+                return user;
+            }
+
+
+        }catch (MalformedURLException e) {
+            return user;
+        } catch (IOException e) {
+            return user;
+        }
+
+        return user;
+    }
+
+    public Association getAssoInfo(int idasso){
+        Association association = new Association(idasso);
+
+        try{
+            URL url = new URL(apiPath+"association/"+idasso);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+
+            if (conn.getResponseCode()==200 ){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                //print response
+                JSONObject myResponse = new JSONObject(response.toString());
+                if (myResponse.get("phone")!=JSONObject.NULL){
+                    association.setPhone(myResponse.getString("phone"));
+                }else{
+                    association.setPhone("Non Renseigné");
+                }
+                if (myResponse.get("logo")!=JSONObject.NULL){
+                    association.setLogo(myResponse.getString("logo"));
+                }else{
+                    association.setLogo("file:../ressource/images.jpg");
+                }
+                association.setEmail(myResponse.getString("email"));
+                association.setName(myResponse.getString("name"));
+                association.setIdas(myResponse.getInt("idas"));
+
+
+                conn.disconnect();
+                return association;
+            }else if(conn.getResponseCode()==401){
+                return association;
+            }
+
+
+        }catch (MalformedURLException e) {
+            return association;
+        } catch (IOException e) {
+            return association;
+        }
+
+        return association;
+    }
+
+    public Admin signInAdmin(Admin admin){
 
         try {
-            String jsonInputString = "{\"login\": \""+user.getLogin()+"\", \"password\": \""+user.getPassword()+"\"}";
+            String jsonInputString = "{\"login\": \""+admin.getLogin()+"\", \"password\": \""+admin.getPassword()+"\"}";
             URL url = new URL(apiPath+"signin/admin");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -88,26 +185,25 @@ public class ApiCaller {
                 }
                 in.close();
                 //print response
-                System.out.println(response.toString());
                 JSONObject myResponse = new JSONObject(response.toString());
-                user.setEmail(myResponse.getString("email"));
-                user.setIda(myResponse.getInt("ida"));
+                admin.setEmail(myResponse.getString("email"));
+                admin.setIda(myResponse.getInt("ida"));
 
                 conn.disconnect();
 
-                return user;
+                return admin;
             }else if(conn.getResponseCode()==401){
-                user.setError("Login or password is incorrect");
-                return user;
+                admin.setError("Login or password is incorrect");
+                return admin;
             }
 
 
         } catch (MalformedURLException e) {
-            user.setError("Internal error");
-            return user;
+            admin.setError("Internal error");
+            return admin;
         } catch (IOException e) {
-            user.setError("Internal server error");
-            return user;
+            admin.setError("Internal server error");
+            return admin;
         }
         return null;
     }
@@ -147,16 +243,13 @@ public class ApiCaller {
 
                 return bugList;
             }else{
-                System.out.println("buglist error");
                 return bugList;
             }
 
 
         } catch (MalformedURLException e) {
-            System.out.println("malformated"+e);
             return bugList;
         } catch (IOException e) {
-            System.out.println("io exception"+e);
             return bugList;
         }
     }
@@ -182,34 +275,44 @@ public class ApiCaller {
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 if (jsonArray != null) {
+
                     int len = jsonArray.length();
                     for (int i=0;i<len;i++){
-                        improveList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
-                                jsonArray.getJSONObject(i).getString("title"),
-                                jsonArray.getJSONObject(i).getString("content"),
-                                jsonArray.getJSONObject(i).getString("date"),
-                                jsonArray.getJSONObject(i).getString("status"),
-                                jsonArray.getJSONObject(i).getString("plateform")));
+                        if(jsonArray.getJSONObject(i).get("idu")!=JSONObject.NULL){
+                            improveList.add(new Feedback(
+                                    jsonArray.getJSONObject(i).getString("content"),
+                                    jsonArray.getJSONObject(i).getString("date"),
+                                    jsonArray.getJSONObject(i).getInt("note"),
+                                    jsonArray.getJSONObject(i).getString("plateform"),
+                                    jsonArray.getJSONObject(i).getInt("idu")));
+                        }else{
+                            improveList.add(new Feedback(
+                                    jsonArray.getJSONObject(i).getString("content"),
+                                    jsonArray.getJSONObject(i).getString("date"),
+                                    jsonArray.getJSONObject(i).getInt("note"),
+                                    jsonArray.getJSONObject(i).getInt("idas"),
+                                    jsonArray.getJSONObject(i).getString("plateform")
+                                    ));
+                        }
+
+
                     }
                 }
                 conn.disconnect();
 
                 return improveList;
             }else{
-                System.out.println("buglist error");
                 return improveList;
             }
 
 
         } catch (MalformedURLException e) {
-            System.out.println("malformated"+e);
             return improveList;
         } catch (IOException e) {
-            System.out.println("io exception"+e);
             return improveList;
         }
     }
-    public String BugToTrello(User admin,Feedback feedback){
+    public String BugToTrello(Admin admin,Feedback feedback,String content){
 
         String key = "",token = "";
 
@@ -227,8 +330,7 @@ public class ApiCaller {
         }
 
         try{
-            String jsonInputString = "{\"appli\": \""+feedback.getPlateform()+"\", \"idfe\": \""+feedback.getIdfe()+"\", \"key\": \""+key+"\",\"token\": \""+token+"\", \"name\": \""+feedback.getTitle()+"\", \"desc\": \""+feedback.getContent()+"\"}";
-            System.out.println(jsonInputString);
+            String jsonInputString = "{\"appli\": \""+feedback.getPlateform()+"\", \"idfe\": \""+feedback.getIdfe()+"\", \"key\": \""+key+"\",\"token\": \""+token+"\", \"name\": \""+feedback.getTitle()+"\", \"desc\": \""+content+"\"}";
             URL url = new URL(apiPath+"trello/feedback");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -242,7 +344,6 @@ public class ApiCaller {
             OutputStream os = conn.getOutputStream();
             os.write(jsonInputString.getBytes("UTF-8"));
             os.close();
-            System.out.println(conn.getResponseCode());
             if (conn.getResponseCode()==200 ){
                 return "ok";
             }else {
@@ -251,10 +352,8 @@ public class ApiCaller {
 
 
         } catch (MalformedURLException e) {
-            System.out.println(e);
             return "server error2";
         } catch (IOException e) {
-            System.out.println(e);
             return "server error3";
         }
         }

@@ -10,20 +10,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.StatController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="860.0" style="-fx-background-color: #DDDDDD;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.StatController">
     <left>
         <BorderPane prefHeight="400.0" prefWidth="150.0" BorderPane.alignment="CENTER">
             <center>
                 <BorderPane prefHeight="430.0" prefWidth="155.0" BorderPane.alignment="CENTER">
                     <bottom>
-                        <Button mnemonicParsing="false" onAction="#Disconnect" text="Disconnect" BorderPane.alignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#Disconnect" text="Déconnexion" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
                                 <Insets bottom="10.0" />
                             </BorderPane.margin>
                         </Button>
                     </bottom>
                     <top>
-                        <Button mnemonicParsing="false" onAction="#GoToHome" text="Home" BorderPane.alignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#GoToHome" text="Accueil" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
                                 <Insets top="30.0" />
                             </BorderPane.margin>
@@ -43,16 +43,17 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="561.0">
                            <children>
 
-                               <PieChart fx:id="chartbug" layoutX="7.0" layoutY="1.0" />
-                               <Label fx:id="caption" text="test" />
+                               <PieChart fx:id="chartbug" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
+                               <Label fx:id="caption" layoutX="4.0" text="test" />
                            </children></AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Improvement">
+                        <Tab text="Notation">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <PieChart fx:id="chartimp" layoutX="7.0" layoutY="1.0" />
+                                        <PieChart fx:id="chartimp" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
+                              <Label fx:id="captionimp" layoutX="4.0" text="test" />
                                     </children></AnchorPane>
                             </content>
                         </Tab>

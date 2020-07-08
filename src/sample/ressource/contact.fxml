@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #DDDDDD;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ContactController">
+   <children>
+      <Label fx:id="namecontact" layoutX="72.0" layoutY="142.0" text="Label" />
+      <Label fx:id="firstnamecontact" layoutX="186.0" layoutY="142.0" text="Label" />
+      <Label fx:id="emailcontact" layoutX="72.0" layoutY="190.0" text="Label" />
+      <Label fx:id="phonecontact" layoutX="72.0" layoutY="240.0" text="Label" />
+      <ImageView fx:id="imagecontact" fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="136.0" layoutY="56.0" />
+   </children>
+</AnchorPane>

@@ -64,8 +64,8 @@ public class HomeController {
     public void Disconnect(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Deconnection");
-        alert.setContentText("Etes vous sur de vouloir vous deconnecté ?");
+        alert.setHeaderText("Déconnexion");
+        alert.setContentText("Etes vous sur de vouloir vous déconnecter ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             try {

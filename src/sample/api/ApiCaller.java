@@ -110,7 +110,7 @@ public class ApiCaller {
         Association association = new Association(idasso);
 
         try{
-            URL url = new URL(apiPath+"association/"+idasso);
+            URL url = new URL(apiPath+"associationdetail/"+idasso);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setConnectTimeout(5000);

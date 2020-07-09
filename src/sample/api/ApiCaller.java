@@ -57,7 +57,7 @@ public class ApiCaller {
         User user = new User(iduser);
 
         try{
-            URL url = new URL(apiPath+"user/"+iduser);
+            URL url = new URL(apiPath+"userdetail/"+iduser);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setConnectTimeout(5000);

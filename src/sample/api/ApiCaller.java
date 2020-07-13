@@ -231,12 +231,22 @@ public class ApiCaller {
                 if (jsonArray != null) {
                     int len = jsonArray.length();
                     for (int i=0;i<len;i++){
-                        bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
-                                jsonArray.getJSONObject(i).getString("title"),
-                                jsonArray.getJSONObject(i).getString("content"),
-                                jsonArray.getJSONObject(i).getString("date"),
-                                jsonArray.getJSONObject(i).getString("status"),
-                                jsonArray.getJSONObject(i).getString("plateform")));
+                        if(jsonArray.getJSONObject(i).get("status")==JSONObject.NULL){
+                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
+                                    jsonArray.getJSONObject(i).getString("title"),
+                                    jsonArray.getJSONObject(i).getString("content"),
+                                    jsonArray.getJSONObject(i).getString("date"),
+                                    "",
+                                    jsonArray.getJSONObject(i).getString("plateform")));
+                        }else{
+                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
+                                    jsonArray.getJSONObject(i).getString("title"),
+                                    jsonArray.getJSONObject(i).getString("content"),
+                                    jsonArray.getJSONObject(i).getString("date"),
+                                    jsonArray.getJSONObject(i).getString("status"),
+                                    jsonArray.getJSONObject(i).getString("plateform")));
+                        }
+
                     }
                 }
                 conn.disconnect();

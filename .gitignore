@@ -21,3 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+out/production/PA-java/sample/ressource/stat.fxml
+out/production/PA-java/sample/ressource/login.fxml
+out/production/PA-java/sample/ressource/images.jpg
+out/production/PA-java/sample/ressource/home.fxml
+out/production/PA-java/sample/ressource/contactuser.fxml
+out/production/PA-java/sample/ressource/contactasso.fxml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/libraries/json_20180813.xml

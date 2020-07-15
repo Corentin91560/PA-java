@@ -10,7 +10,7 @@ import sample.Class.User;
 
 
 
-public class ContactController {
+public class ContactUserController {
     @FXML
     Label namecontact;
     @FXML
@@ -27,7 +27,6 @@ public class ContactController {
     }
 
     public void transferMessage(User user) {
-        //Display the message
         namecontact.setText(user.getName());
         firstnamecontact.setText(user.getFirstname());
         emailcontact.setText(user.getEmail());

@@ -21,7 +21,6 @@ public class ContactAssoController {
     }
 
     public void transferMessage(Association association) {
-        //Display the message
         nameassocontact.setText(association.getName());
         emailassocontact.setText(association.getEmail());
         phoneassocontact.setText(association.getPhone());

@@ -13,9 +13,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("ressource/login.fxml"));
         primaryStage.setTitle("BENEVENT ADMIN");
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

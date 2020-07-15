@@ -34,7 +34,7 @@
             </BorderPane>
          </center>
          <top>
-            <Button mnemonicParsing="false" onAction="#refresh" text="Rafraichir" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#init" text="Rafraichir" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="6.0" />
                </BorderPane.margin></Button>
@@ -88,7 +88,7 @@
                                <Label layoutX="272.0" layoutY="280.0" text="Note" />
                                <Label layoutX="264.0" layoutY="141.0" text="Contenu" />
                                <Label layoutX="256.0" layoutY="314.0" text="Plateforme" />
-                               <Button fx:id="contactuserbtn" disable="true" layoutX="409.0" layoutY="362.0" mnemonicParsing="false" onAction="#AddImpToTrello" prefHeight="24.0" prefWidth="126.0" text="Fiche contact" />
+                               <Button fx:id="contactuserbtn" disable="true" layoutX="409.0" layoutY="362.0" mnemonicParsing="false" onAction="#Contact" prefHeight="24.0" prefWidth="126.0" text="Fiche contact" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

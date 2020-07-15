@@ -1,21 +1,12 @@
 package sample.Class;
 
 public class User {
-int iduser;
-String name;
-String firstname;
-String email;
-String phone;
-String profilpicture;
-
-    public User(int iduser, String name, String firstname, String email, String phone, String profilpicture) {
-        this.iduser = iduser;
-        this.name = name;
-        this.firstname = firstname;
-        this.email = email;
-        this.phone = phone;
-        this.profilpicture = profilpicture;
-    }
+    private int iduser;
+    private String name;
+    private String firstname;
+    private String email;
+    private String phone;
+    private String profilpicture;
 
     public User(int iduser) {
         this.iduser = iduser;

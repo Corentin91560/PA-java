@@ -6,11 +6,9 @@ import javafx.scene.control.*;
 import sample.Class.Admin;
 import sample.api.ApiCaller;
 
-import java.util.Optional;
-
 public class LoginController {
 
-    public static Admin currentAdmin;
+    static Admin currentAdmin;
 
     @FXML
     private TextField login_tf;
@@ -44,17 +42,13 @@ public class LoginController {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("serveur non disponible verifier la connection ");
+            alert.setHeaderText("serveur non disponible verifier la connexion ");
             alert.showAndWait();
         }
     }
 
-    public Admin getCurrentAdmin() {
-        return currentAdmin;
-    }
-
-    public void setCurrentAdmin(Admin currentAdmin) {
-        this.currentAdmin = currentAdmin;
+    private void setCurrentAdmin(Admin currentAdmin) {
+        LoginController.currentAdmin = currentAdmin;
     }
 
 }

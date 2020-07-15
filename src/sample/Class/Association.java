@@ -1,19 +1,11 @@
 package sample.Class;
 
 public class Association {
-    int idassociation;
-    String name;
-    String logo;
-    String email;
-    String phone;
-
-    public Association(int idassociation, String name, String logo, String email, String phone) {
-        this.idassociation = idassociation;
-        this.name = name;
-        this.logo = logo;
-        this.email = email;
-        this.phone = phone;
-    }
+    private int idassociation;
+    private String name;
+    private String logo;
+    private String email;
+    private String phone;
 
     public Association(int idassociation) {
         this.idassociation = idassociation;

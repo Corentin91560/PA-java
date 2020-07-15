@@ -1,18 +1,18 @@
 package sample.Class;
 
 public class Feedback {
-    int idfeedback;
-    String title;
-    String content;
-    String date;
-    String status;
-    int note;
-    int idassociation;
-    int idadmin;
-    int iduser;
-    String plateform;
+    private int idfeedback;
+    private String title;
+    private String content;
+    private String date;
+    private String status;
+    private int note;
+    private int idassociation;
+    private int idadmin;
+    private int iduser;
+    private String plateform;
 
-    public Feedback(String content, String date, int note, String plateform,int iduser) {
+    public Feedback(String content, String date, int note, String plateform, int iduser) {
         this.content = content;
         this.date = date;
         this.note = note;

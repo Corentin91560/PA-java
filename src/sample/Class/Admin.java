@@ -2,11 +2,11 @@ package sample.Class;
 
 public class Admin {
 
-    String login;
-    String password;
-    int idadmin;
-    String email;
-    String error;
+    private String login;
+    private String password;
+    private int idadmin;
+    private String email;
+    private String error;
 
     public Admin(String login, String password, int idadmin, String email, String error) {
         this.login = login;

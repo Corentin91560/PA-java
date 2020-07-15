@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class StatController {
     @FXML
-            PieChart chartbug;
+    PieChart chartbug;
     @FXML
     Label caption;
     private int statuspending=0;
@@ -60,7 +60,6 @@ public class StatController {
             i = i + 1;
         }
 
-
         PieChart.Data slice2 = new PieChart.Data("En cours", statuspending);
         PieChart.Data slice3 = new PieChart.Data("Implementé", statusvalidate);
         PieChart.Data slice1 = new PieChart.Data("Non traité", statusnottreated);
@@ -72,14 +71,13 @@ public class StatController {
 
         caption.setText("");
         caption.setTextFill(Color.BLACK);
-        caption.setStyle("-fx-font: 12 arial;");
 
         for (final PieChart.Data data : chartbug.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    caption.setTranslateX(e.getSceneX()-150);
-                    caption.setTranslateY(e.getSceneY()-100);
+                    caption.setTranslateX(e.getSceneX() - 150);
+                    caption.setTranslateY(e.getSceneY() - 100);
                     caption.setText(String.valueOf((int) data.getPieValue()));
                 }
             });
@@ -114,8 +112,6 @@ public class StatController {
             i = i + 1;
         }
 
-
-
         PieChart.Data slice0 = new PieChart.Data("0 Etoile", note0);
         PieChart.Data slice1 = new PieChart.Data("1 Etoile", note1);
         PieChart.Data slice2 = new PieChart.Data("2 Etoiles", note2);
@@ -138,18 +134,16 @@ public class StatController {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    captionimp.setTranslateX(e.getSceneX()-150);
-                    captionimp.setTranslateY(e.getSceneY()-100);
+                    captionimp.setTranslateX(e.getSceneX() - 150);
+                    captionimp.setTranslateY(e.getSceneY() - 100);
                     captionimp.setText(String.valueOf((int) data.getPieValue()));
                 }
             });
         }
-
     }
 
 
     public void Disconnect(ActionEvent actionEvent) {
-
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");

@@ -4,14 +4,14 @@ public class Admin {
 
     String login;
     String password;
-    int ida;
+    int idadmin;
     String email;
     String error;
 
-    public Admin(String login, String password, int ida, String email, String error) {
+    public Admin(String login, String password, int idadmin, String email, String error) {
         this.login = login;
         this.password = password;
-        this.ida = ida;
+        this.idadmin = idadmin;
         this.email = email;
         this.error = error;
     }
@@ -38,11 +38,11 @@ public class Admin {
     }
 
     public int getIda() {
-        return ida;
+        return idadmin;
     }
 
-    public void setIda(int ida) {
-        this.ida = ida;
+    public void setIda(int idadmin) {
+        this.idadmin = idadmin;
     }
 
     public String getEmail() {

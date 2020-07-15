@@ -32,6 +32,7 @@ public class ApiCaller {
 
     public String validatebug(Feedback feedback){
         try{
+            String jsonInputString = "{\"status\": \"validate\"}";
             URL url = new URL(apiPath+"feedback/"+feedback.getIdfe());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -41,6 +42,9 @@ public class ApiCaller {
             conn.setDoInput(true);
             conn.setRequestMethod("PUT");
 
+            OutputStream os = conn.getOutputStream();
+            os.write(jsonInputString.getBytes("UTF-8"));
+            os.close();
             if (conn.getResponseCode()==200 ){
                 return "ok";
             }else {
@@ -57,7 +61,7 @@ public class ApiCaller {
         User user = new User(iduser);
 
         try{
-            URL url = new URL(apiPath+"userdetail/"+iduser);
+            URL url = new URL(apiPath+"user/detail/"+iduser);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setConnectTimeout(5000);
@@ -87,7 +91,7 @@ public class ApiCaller {
                 user.setEmail(myResponse.getString("email"));
                 user.setFirstname(myResponse.getString("firstname"));
                 user.setName(myResponse.getString("name"));
-                user.setIdu(myResponse.getInt("idu"));
+                user.setIdu(myResponse.getInt("iduser"));
 
 
                 conn.disconnect();
@@ -139,7 +143,7 @@ public class ApiCaller {
                 }
                 association.setEmail(myResponse.getString("email"));
                 association.setName(myResponse.getString("name"));
-                association.setIdas(myResponse.getInt("idas"));
+                association.setIdas(myResponse.getInt("idassociation"));
 
 
                 conn.disconnect();
@@ -187,7 +191,7 @@ public class ApiCaller {
                 //print response
                 JSONObject myResponse = new JSONObject(response.toString());
                 admin.setEmail(myResponse.getString("email"));
-                admin.setIda(myResponse.getInt("ida"));
+                admin.setIda(myResponse.getInt("idadmin"));
 
                 conn.disconnect();
 
@@ -232,21 +236,20 @@ public class ApiCaller {
                     int len = jsonArray.length();
                     for (int i=0;i<len;i++){
                         if(jsonArray.getJSONObject(i).get("status")==JSONObject.NULL){
-                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
+                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfeedback"),
                                     jsonArray.getJSONObject(i).getString("title"),
                                     jsonArray.getJSONObject(i).getString("content"),
                                     jsonArray.getJSONObject(i).getString("date"),
                                     "",
                                     jsonArray.getJSONObject(i).getString("plateform")));
                         }else{
-                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfe"),
+                            bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfeedback"),
                                     jsonArray.getJSONObject(i).getString("title"),
                                     jsonArray.getJSONObject(i).getString("content"),
                                     jsonArray.getJSONObject(i).getString("date"),
                                     jsonArray.getJSONObject(i).getString("status"),
                                     jsonArray.getJSONObject(i).getString("plateform")));
                         }
-
                     }
                 }
                 conn.disconnect();
@@ -288,19 +291,19 @@ public class ApiCaller {
 
                     int len = jsonArray.length();
                     for (int i=0;i<len;i++){
-                        if(jsonArray.getJSONObject(i).get("idu")!=JSONObject.NULL){
+                        if(jsonArray.getJSONObject(i).get("iduser")!=JSONObject.NULL){
                             improveList.add(new Feedback(
                                     jsonArray.getJSONObject(i).getString("content"),
                                     jsonArray.getJSONObject(i).getString("date"),
                                     jsonArray.getJSONObject(i).getInt("note"),
                                     jsonArray.getJSONObject(i).getString("plateform"),
-                                    jsonArray.getJSONObject(i).getInt("idu")));
+                                    jsonArray.getJSONObject(i).getInt("iduser")));
                         }else{
                             improveList.add(new Feedback(
                                     jsonArray.getJSONObject(i).getString("content"),
                                     jsonArray.getJSONObject(i).getString("date"),
                                     jsonArray.getJSONObject(i).getInt("note"),
-                                    jsonArray.getJSONObject(i).getInt("idas"),
+                                    jsonArray.getJSONObject(i).getInt("idassociation"),
                                     jsonArray.getJSONObject(i).getString("plateform")
                                     ));
                         }
@@ -340,7 +343,7 @@ public class ApiCaller {
         }
 
         try{
-            String jsonInputString = "{\"appli\": \""+feedback.getPlateform()+"\", \"idfe\": \""+feedback.getIdfe()+"\", \"key\": \""+key+"\",\"token\": \""+token+"\", \"name\": \""+feedback.getTitle()+"\", \"desc\": \""+content+"\"}";
+            String jsonInputString = "{\"appli\": \""+feedback.getPlateform()+"\", \"idfeedback\": \""+feedback.getIdfe()+"\", \"key\": \""+key+"\",\"token\": \""+token+"\", \"name\": \""+feedback.getTitle()+"\", \"desc\": \""+content+"\", \"statu\": \"pending\"}";
             URL url = new URL(apiPath+"trello/feedback");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 

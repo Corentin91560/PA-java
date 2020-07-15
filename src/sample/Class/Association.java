@@ -1,30 +1,30 @@
 package sample.Class;
 
 public class Association {
-    int idas;
+    int idassociation;
     String name;
     String logo;
     String email;
     String phone;
 
-    public Association(int idas, String name, String logo, String email, String phone) {
-        this.idas = idas;
+    public Association(int idassociation, String name, String logo, String email, String phone) {
+        this.idassociation = idassociation;
         this.name = name;
         this.logo = logo;
         this.email = email;
         this.phone = phone;
     }
 
-    public Association(int idas) {
-        this.idas = idas;
+    public Association(int idassociation) {
+        this.idassociation = idassociation;
     }
 
     public int getIdas() {
-        return idas;
+        return idassociation;
     }
 
-    public void setIdas(int idas) {
-        this.idas = idas;
+    public void setIdas(int idassociation) {
+        this.idassociation = idassociation;
     }
 
     public String getName() {

@@ -1,35 +1,35 @@
 package sample.Class;
 
 public class Feedback {
-    int idfe;
+    int idfeedback;
     String title;
     String content;
     String date;
     String status;
     int note;
-    int idas;
-    int ida;
-    int idu;
+    int idassociation;
+    int idadmin;
+    int iduser;
     String plateform;
 
-    public Feedback(String content, String date, int note, String plateform,int idu) {
+    public Feedback(String content, String date, int note, String plateform,int iduser) {
         this.content = content;
         this.date = date;
         this.note = note;
         this.plateform = plateform;
-        this.idu = idu;
+        this.iduser = iduser;
     }
 
-    public Feedback(String content, String date, int note, int idas, String plateform) {
+    public Feedback(String content, String date, int note, int idassociation, String plateform) {
         this.content = content;
         this.date = date;
         this.note = note;
-        this.idas = idas;
+        this.idassociation = idassociation;
         this.plateform = plateform;
     }
 
-    public Feedback(int idfe, String title, String content, String date, String status, String plateform) {
-        this.idfe = idfe;
+    public Feedback(int idfeedback, String title, String content, String date, String status, String plateform) {
+        this.idfeedback = idfeedback;
         this.title = title;
         this.content = content;
         this.date = date;
@@ -54,11 +54,11 @@ public class Feedback {
     }
 
     public int getIdfe() {
-        return idfe;
+        return idfeedback;
     }
 
-    public void setIdfe(int idfe) {
-        this.idfe = idfe;
+    public void setIdfe(int idfeedback) {
+        this.idfeedback = idfeedback;
     }
 
     public String getTitle() {
@@ -94,26 +94,26 @@ public class Feedback {
     }
 
     public int getIdas() {
-        return idas;
+        return idassociation;
     }
 
-    public void setIdas(int idas) {
-        this.idas = idas;
+    public void setIdas(int idassociation) {
+        this.idassociation = idassociation;
     }
 
     public int getIda() {
-        return ida;
+        return idadmin;
     }
 
-    public void setIda(int ida) {
-        this.ida = ida;
+    public void setIda(int idadmin) {
+        this.idadmin = idadmin;
     }
 
     public int getIdu() {
-        return idu;
+        return iduser;
     }
 
-    public void setIdu(int idu) {
-        this.idu = idu;
+    public void setIdu(int iduser) {
+        this.iduser = iduser;
     }
 }

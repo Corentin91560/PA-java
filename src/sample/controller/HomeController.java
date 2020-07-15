@@ -117,7 +117,7 @@ public class HomeController {
         ApiCaller caller = ApiCaller.getInstance();
         String information = caller.BugToTrello(currentAdmin,listbug.get(selected),tfcontentbug.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Information");
         alert.setHeaderText(information);
         alert.showAndWait();
         init();

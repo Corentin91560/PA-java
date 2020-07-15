@@ -10,13 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import sample.Class.Admin;
-import sample.Class.Association;
-import sample.Class.Feedback;
-import sample.Class.User;
+import sample.Class.*;
 import sample.api.ApiCaller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HomeController {
@@ -44,6 +42,10 @@ public class HomeController {
     private TextArea tfcontentimp;
     @FXML
     private TextField tfplateimp;
+    @FXML
+    private TextArea content_news_tf;
+    @FXML
+    private TextField title_news_tf;
     @FXML
     private Button btnaddtrello;
     @FXML
@@ -194,6 +196,23 @@ public class HomeController {
         } else {
             alert.close();
         }
+
+    }
+
+    public void SendNews(ActionEvent actionEvent) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String datenow = formatter.format(new Date());
+
+        News news = new News(title_news_tf.getText(),content_news_tf.getText(),datenow);
+
+        ApiCaller caller = ApiCaller.getInstance();
+        String information = caller.AddNews(news);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(information);
+        alert.showAndWait();
+
+
 
     }
 }

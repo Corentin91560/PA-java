@@ -2,10 +2,7 @@ package sample.api;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import sample.Class.Admin;
-import sample.Class.Association;
-import sample.Class.Feedback;
-import sample.Class.User;
+import sample.Class.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,7 +14,7 @@ import java.util.List;
 
 public class ApiCaller {
 
-    private String apiUrl = "https://benevent-esgi.herokuapp.com/";
+    private String apiUrl = "http://localhost:3000/";
 
     private static ApiCaller instance;
 
@@ -356,6 +353,33 @@ public class ApiCaller {
         }
 
         return association;
+    }
+
+    public String AddNews(News news){
+        String jsonInputString = "{\"title\": \""+news.getTitle()+"\", \"content\": \""+news.getContent()+"\", \"date\": \""+news.getDate()+"\"}";
+        try {
+            URL url = new URL(apiUrl+"news");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("POST");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(jsonInputString.getBytes(StandardCharsets.UTF_8));
+            os.close();
+            if (conn.getResponseCode()==200 ){
+                conn.disconnect();
+                return "Votre message a bien été implémenté";
+            }else {
+                return "Vous ne pouvez pas publier ce message";
+            }
+
+        } catch (IOException e) {
+            return "Le serveur est injoignable";
+        }
     }
 
 }

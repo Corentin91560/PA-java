@@ -16,7 +16,7 @@ public class ContactAssoController {
     @FXML
     ImageView logoassocontact;
 
-    public void initialize(){
+    public void initialize() {
 
     }
 

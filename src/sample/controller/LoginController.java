@@ -17,12 +17,10 @@ public class LoginController {
     @FXML
     private Label labelerror;
 
-
     public void connect(ActionEvent actionEvent) {
         Admin tryAdmin = new Admin(login_tf.getText(), password_tf.getText());
 
         try {
-
             ApiCaller caller = ApiCaller.getInstance();
             setCurrentAdmin(caller.signInAdmin(tryAdmin));
             if (currentAdmin.getError() == null) {
@@ -30,6 +28,7 @@ public class LoginController {
                 try {
                     ChangeSceneController controller = new ChangeSceneController();
                     controller.changeScene("../ressource/home.fxml", actionEvent);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -37,7 +36,6 @@ public class LoginController {
             } else {
                 labelerror.setVisible(true);
             }
-
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

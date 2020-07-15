@@ -21,23 +21,22 @@ public class StatController {
     PieChart chartbug;
     @FXML
     Label caption;
-    private int statuspending=0;
-    private int statusvalidate=0;
-    private int statusnottreated=0;
+    private int statuspending = 0;
+    private int statusvalidate = 0;
+    private int statusnottreated = 0;
 
     @FXML
     PieChart chartimp;
     @FXML
     Label captionimp;
-    private int note0=0;
-    private int note1=0;
-    private int note2=0;
-    private int note3=0;
-    private int note4=0;
-    private int note5=0;
+    private int note0 = 0;
+    private int note1 = 0;
+    private int note2 = 0;
+    private int note3 = 0;
+    private int note4 = 0;
+    private int note5 = 0;
 
-
-    public void initialize(){
+    public void initialize() {
         SetChartDataBug();
         SetChartDataimp();
     }
@@ -60,13 +59,20 @@ public class StatController {
             i = i + 1;
         }
 
-        PieChart.Data slice2 = new PieChart.Data("En cours", statuspending);
-        PieChart.Data slice3 = new PieChart.Data("Implementé", statusvalidate);
-        PieChart.Data slice1 = new PieChart.Data("Non traité", statusnottreated);
+        PieChart.Data sliceNotTreated = new PieChart.Data("Non traité", statusnottreated);
+        PieChart.Data slicePending = new PieChart.Data("En cours", statuspending);
+        PieChart.Data sliceValidate = new PieChart.Data("Implementé", statusvalidate);
 
-        chartbug.getData().add(slice1);
-        chartbug.getData().add(slice2);
-        chartbug.getData().add(slice3);
+        if (statusnottreated > 0) {
+            chartbug.getData().add(sliceNotTreated);
+        }
+        if (statuspending > 0) {
+            chartbug.getData().add(slicePending);
+        }
+        if (statusvalidate > 0) {
+            chartbug.getData().add(sliceValidate);
+        }
+
         chartbug.setLegendSide(Side.LEFT);
 
         caption.setText("");
@@ -119,12 +125,25 @@ public class StatController {
         PieChart.Data slice4 = new PieChart.Data("4 Etoiles", note4);
         PieChart.Data slice5 = new PieChart.Data("5 Etoiles", note5);
 
-        chartimp.getData().add(slice0);
-        chartimp.getData().add(slice1);
-        chartimp.getData().add(slice2);
-        chartimp.getData().add(slice3);
-        chartimp.getData().add(slice4);
-        chartimp.getData().add(slice5);
+        if (note0 > 0) {
+            chartimp.getData().add(slice0);
+        }
+        if (note1 > 0) {
+            chartimp.getData().add(slice1);
+        }
+        if (note2 > 0) {
+            chartimp.getData().add(slice2);
+        }
+        if (note3 > 0) {
+            chartimp.getData().add(slice3);
+        }
+        if (note4 > 0) {
+            chartimp.getData().add(slice4);
+        }
+        if (note5 > 0) {
+            chartimp.getData().add(slice5);
+        }
+
         chartimp.setLegendSide(Side.LEFT);
 
         captionimp.setText("");
@@ -142,7 +161,6 @@ public class StatController {
         }
     }
 
-
     public void Disconnect(ActionEvent actionEvent) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -150,6 +168,7 @@ public class StatController {
         alert.setHeaderText("Déconnexion");
         alert.setContentText("Etes vous sur de vouloir vous déconnecter ?");
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.get() == ButtonType.OK) {
             try {
                 ChangeSceneController controller = new ChangeSceneController();

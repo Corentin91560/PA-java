@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ApiCaller {
 
-    private String apiUrl = "http://localhost:3000/";
+    private String apiUrl = "https://benevent-esgi.herokuapp.com/";
 
     private static ApiCaller instance;
 
@@ -104,7 +104,7 @@ public class ApiCaller {
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 int length = jsonArray.length();
-                for (int i=0;i<length;i++) {
+                for (int i = 0; i < length; i++) {
                     if (jsonArray.getJSONObject(i).get("status") == JSONObject.NULL) {
                         bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfeedback"),
                                 jsonArray.getJSONObject(i).getString("title"),
@@ -167,7 +167,7 @@ public class ApiCaller {
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 int length = jsonArray.length();
-                for (int i=0;i<length;i++) {
+                for (int i = 0; i < length; i++) {
                     if (jsonArray.getJSONObject(i).get("iduser") != JSONObject.NULL) {
                         improveList.add(new Feedback(
                                 jsonArray.getJSONObject(i).getString("content"),
@@ -270,6 +270,7 @@ public class ApiCaller {
             OutputStream os = conn.getOutputStream();
             os.write(jsonInputString.getBytes(StandardCharsets.UTF_8));
             os.close();
+
             if (conn.getResponseCode() == 200 ) {
                 return "Votre Bug a bien été validé";
             } else {
@@ -361,12 +362,13 @@ public class ApiCaller {
                         new InputStreamReader(conn.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();
+
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
                 in.close();
-
                 JSONObject myResponse = new JSONObject(response.toString());
+
                 if (myResponse.get("phone")!=JSONObject.NULL) {
                     association.setPhone(myResponse.getString("phone"));
                 } else {
@@ -377,10 +379,10 @@ public class ApiCaller {
                 } else {
                     association.setLogo("file:../ressource/images.jpg");
                 }
+
                 association.setEmail(myResponse.getString("email"));
                 association.setName(myResponse.getString("name"));
                 association.setIdas(myResponse.getInt("idassociation"));
-
 
                 conn.disconnect();
 
@@ -393,7 +395,6 @@ public class ApiCaller {
 
                 return association;
             }
-
 
         } catch (IOException e) {
 
@@ -408,8 +409,9 @@ public class ApiCaller {
         return association;
     }
 
-    public String AddNews(News news){
-        String jsonInputString = "{\"title\": \""+news.getTitle()+"\", \"content\": \""+news.getContent()+"\", \"date\": \""+news.getDate()+"\"}";
+    public String AddNews(News news) {
+        String jsonInputString = "{\"title\": \""+news.getTitle() + "\", \"content\": \"" + news.getContent()+"\", \"date\": \"" + news.getDate() + "\"}";
+
         try {
             URL url = new URL(apiUrl+"news");
 
@@ -423,10 +425,11 @@ public class ApiCaller {
             OutputStream os = conn.getOutputStream();
             os.write(jsonInputString.getBytes(StandardCharsets.UTF_8));
             os.close();
-            if (conn.getResponseCode()==200 ){
+
+            if (conn.getResponseCode() == 200 ) {
                 conn.disconnect();
                 return "Votre message a bien été implémenté";
-            }else {
+            } else {
                 return "Vous ne pouvez pas publier ce message";
             }
 
@@ -434,5 +437,4 @@ public class ApiCaller {
             return "Le serveur est injoignable";
         }
     }
-
 }

@@ -57,19 +57,19 @@ public class HomeController {
     private ObservableList<String> observableImproveList = FXCollections.observableArrayList();
 
 
-    public void initialize(){
+    public void initialize() {
         init();
     }
 
-    public void init(){
+    public void init() {
 
         ApiCaller caller = ApiCaller.getInstance();
         listbug = caller.Returnbug();
-        int i=0;
+        int i = 0;
         observableBugList.clear();
-        while(i<listbug.size()){
-            observableBugList.add(listbug.get(i).getDate().substring(0,10)+" - "+listbug.get(i).getTitle());
-            i+=1;
+        while (i < listbug.size()) {
+            observableBugList.add(listbug.get(i).getDate().substring(0,10) + " - " + listbug.get(i).getTitle());
+            i += 1;
         }
 
         buglist.setItems(observableBugList);
@@ -92,11 +92,11 @@ public class HomeController {
         });
 
         listimprove = caller.Returnimprove();
-        int j=0;
+        int j = 0;
         observableImproveList.clear();
-        while(j<listimprove.size()){
+        while (j < listimprove.size()) {
             observableImproveList.add(listimprove.get(j).getContent());
-            j=j+1;
+            j = j + 1;
         }
         improvelist.setItems(observableImproveList);
 
@@ -115,7 +115,7 @@ public class HomeController {
     public void AddBugToTrello(ActionEvent actionEvent) {
 
         ApiCaller caller = ApiCaller.getInstance();
-        String information = caller.BugToTrello(currentAdmin,listbug.get(selected),tfcontentbug.getText());
+        String information = caller.BugToTrello(currentAdmin, listbug.get(selected), tfcontentbug.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText(information);
@@ -127,7 +127,7 @@ public class HomeController {
         ApiCaller caller = ApiCaller.getInstance();
         System.out.println(listimprove.get(selectedimp).getIdu());
 
-        if (listimprove.get(selectedimp).getIdu()==0){
+        if (listimprove.get(selectedimp).getIdu() == 0){
             Association detailasso = caller.getAssoInfo(listimprove.get(selectedimp).getIdas());
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../ressource/contactasso.fxml"));
@@ -143,7 +143,7 @@ public class HomeController {
                 e.printStackTrace();
             }
 
-        }else{
+        } else {
             User detailuser = caller.getUserInfo(listimprove.get(selectedimp).getIdu());
 
             try {
@@ -160,10 +160,6 @@ public class HomeController {
                 e.printStackTrace();
             }
         }
-
-
-
-
     }
     public void ValidateBug(ActionEvent actionEvent) {
         ApiCaller caller = ApiCaller.getInstance();
@@ -211,8 +207,5 @@ public class HomeController {
         alert.setTitle("Information Dialog");
         alert.setHeaderText(information);
         alert.showAndWait();
-
-
-
     }
 }

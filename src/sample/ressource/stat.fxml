@@ -42,7 +42,6 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="561.0">
                            <children>
-
                                <PieChart fx:id="chartbug" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
                                <Label fx:id="caption" layoutX="4.0" text="test" />
                            </children></AnchorPane>
@@ -76,7 +75,6 @@
                      <Insets bottom="30.0" />
                  </padding>
              </Label>
-
          </children></AnchorPane>
    </top>
 </BorderPane>

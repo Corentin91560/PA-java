@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 class ChangeSceneController {
-    void changeScene(String fxmlfile, ActionEvent actionEvent){
 
+    void changeScene(String fxmlfile, ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlfile));
             Parent root = fxmlLoader.load();
@@ -18,7 +18,7 @@ class ChangeSceneController {
             Stage currentStage = (Stage)source.getScene().getWindow();
             currentStage.setScene(new Scene(root));
             currentStage.show();
-            //</editor-fold>
+
         } catch(Exception e) {
             e.printStackTrace();
         }

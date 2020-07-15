@@ -7,9 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.Class.User;
 
-
-
-
 public class ContactUserController {
     @FXML
     Label namecontact;
@@ -22,7 +19,7 @@ public class ContactUserController {
     @FXML
     ImageView imagecontact;
 
-    public void initialize(){
+    public void initialize() {
 
     }
 
@@ -34,8 +31,5 @@ public class ContactUserController {
         Image image = new Image(user.getProfilpicture());
         imagecontact.setImage(image);
     }
-
-
-
 }
 

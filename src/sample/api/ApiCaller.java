@@ -166,7 +166,7 @@ public class ApiCaller {
                                 jsonArray.getJSONObject(i).getInt("note"),
                                 jsonArray.getJSONObject(i).getString("platform"),
                                 jsonArray.getJSONObject(i).getInt("iduser")));
-                    } else {
+                    } else if(jsonArray.getJSONObject(i).get("idassociation") != JSONObject.NULL) {
                         improveList.add(new Feedback(
                                 jsonArray.getJSONObject(i).getString("content"),
                                 jsonArray.getJSONObject(i).getString("date"),
@@ -174,6 +174,13 @@ public class ApiCaller {
                                 jsonArray.getJSONObject(i).getInt("idassociation"),
                                 jsonArray.getJSONObject(i).getString("platform")
                                 ));
+                    }else{
+                        improveList.add(new Feedback(
+                                jsonArray.getJSONObject(i).getString("content"),
+                                jsonArray.getJSONObject(i).getString("date"),
+                                jsonArray.getJSONObject(i).getInt("note"),
+                                jsonArray.getJSONObject(i).getString("platform")
+                        ));
                     }
                 }
                 conn.disconnect();

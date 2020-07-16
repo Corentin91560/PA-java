@@ -28,6 +28,13 @@ public class Feedback {
         this.platform = platform;
     }
 
+    public Feedback(String content, String date, int note, String platform) {
+        this.content = content;
+        this.date = date;
+        this.note = note;
+        this.platform = platform;
+    }
+
     public Feedback(int idFeedback, String title, String content, String date, String status, String platform) {
         this.idFeedback = idFeedback;
         this.title = title;

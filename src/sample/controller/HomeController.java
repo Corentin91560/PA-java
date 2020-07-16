@@ -113,11 +113,13 @@ public class HomeController {
         ratingListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                contactUserButton.setDisable(false);
                 selectedRatingIndex = ratingListView.getSelectionModel().getSelectedIndices().get(0);
                 ratingNoteTF.setText(String.valueOf(ratingList.get(selectedRatingIndex).getNote()));
                 ratingContentTF.setText(ratingList.get(selectedRatingIndex).getContent());
                 ratingPlatformTF.setText(ratingList.get(selectedRatingIndex).getPlatform());
+                contactUserButton.setDisable(true);
+                if(!ratingList.get(selectedRatingIndex).getPlatform().equals("FLUTTER")) contactUserButton.setDisable(false);
+
             }
         });
     }

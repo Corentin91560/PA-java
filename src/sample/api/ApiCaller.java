@@ -66,16 +66,11 @@ public class ApiCaller {
 
             } else if (conn.getResponseCode() == 401) {
                 admin.setError("Le login ou le mot de passe est incorrect");
-                return admin;
+            } else {
+                admin.setError("L'application n'arrive pas à vous connecter.\nCode Erreur : " + conn.getResponseCode());
             }
-
-        } catch (MalformedURLException e) {
-            admin.setError("Internal error");
-            return admin;
-
         } catch (IOException e) {
-            admin.setError("Internal server error");
-            return admin;
+            admin.setError("L'application à rencontrer une erreur :\n" + e);
         }
 
         return admin;
@@ -127,20 +122,20 @@ public class ApiCaller {
 
             } else {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("L'application n'arrive pas à récupérer la liste de bug.\nCode Erreur : " + conn.getResponseCode());
-                alert.showAndWait();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application n'arrive pas à récupérer la liste de bug.\nCode Erreur : " + conn.getResponseCode());
+                alertError.showAndWait();
 
                 return bugList;
             }
 
         } catch (IOException e) {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-            alert.showAndWait();
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+            alertError.showAndWait();
 
             return bugList;
         }
@@ -190,22 +185,18 @@ public class ApiCaller {
                 return improveList;
 
             } else {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("L'application n'arrive pas à récupérer la liste des améliorations.\nCode Erreur : " + conn.getResponseCode());
-                alert.showAndWait();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application n'arrive pas à récupérer la liste des améliorations.\nCode Erreur : " + conn.getResponseCode());
+                alertError.showAndWait();
 
                 return improveList;
             }
-
-
         } catch (IOException e) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-            alert.showAndWait();
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+            alertError.showAndWait();
 
             return improveList;
         }
@@ -245,9 +236,9 @@ public class ApiCaller {
             os.close();
 
             if (conn.getResponseCode() == 200 ) {
-                return "ok";
+                return "Le bug à bien été envoyé !";
             } else {
-                return "L'application n'arrive pas joindre le serveur.\nCode Erreur : " + conn.getResponseCode();
+                return "L'application n'arrive pas envoyé le bug.\nCode Erreur : " + conn.getResponseCode();
             }
 
         } catch (IOException e) {
@@ -272,13 +263,13 @@ public class ApiCaller {
             os.close();
 
             if (conn.getResponseCode() == 200 ) {
-                return "Votre Bug a bien été validé";
+                return "Le bug à bien été validé !";
             } else {
-                return "serveur indisponible code de réponse : " + conn.getResponseCode();
+                return "Le serveur à rencontrer une erreur.\nCode Erreur : " + conn.getResponseCode();
             }
 
         } catch (IOException e) {
-            return "erreur interne";
+            return "L'application à rencontrer une erreur :\n" + e ;
         }
     }
 
@@ -325,22 +316,18 @@ public class ApiCaller {
 
             } else {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("L'application n'arrive pas à récupérer les informations de l'utilisateur.\nCode Erreur : " + conn.getResponseCode());
-                alert.showAndWait();
-
-                return user;
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application n'arrive pas à récupérer les informations de l'utilisateur.\nCode Erreur : " + conn.getResponseCode());
+                alertError.showAndWait();
             }
 
         } catch (IOException e) {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-            alert.showAndWait();
-
-            return user;
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+            alertError.showAndWait();
         }
 
         return user;
@@ -351,7 +338,7 @@ public class ApiCaller {
         Association association = new Association(idasso);
 
         try {
-            URL url = new URL(apiUrl + "associationdetail/" + idasso);
+            URL url = new URL(apiUrl + "association/details/" + idasso);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setConnectTimeout(5000);
@@ -387,25 +374,18 @@ public class ApiCaller {
                 conn.disconnect();
 
             } else {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("L'application n'arrive pas à récupérer les informations de l'association.\nCode Erreur : " + conn.getResponseCode());
-                alert.showAndWait();
-
-                return association;
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application n'arrive pas à récupérer les informations de l'association.\nCode Erreur : " + conn.getResponseCode());
+                alertError.showAndWait();
             }
-
         } catch (IOException e) {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-            alert.showAndWait();
-
-            return association;
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+            alertError.showAndWait();
         }
-
         return association;
     }
 
@@ -430,11 +410,11 @@ public class ApiCaller {
                 conn.disconnect();
                 return "Votre message a bien été implémenté";
             } else {
-                return "Vous ne pouvez pas publier ce message";
+                return "L'application n'arrive pas à publier votre message.\nCode Erreur : " + conn.getResponseCode();
             }
 
         } catch (IOException e) {
-            return "Le serveur est injoignable";
+            return "L'application à rencontrer une erreur :\n" + e;
         }
     }
 }

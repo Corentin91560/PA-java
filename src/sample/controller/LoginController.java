@@ -30,7 +30,10 @@ public class LoginController {
                     controller.changeScene("../ressource/home.fxml", actionEvent);
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Alert alertError = new Alert(Alert.AlertType.WARNING);
+                    alertError.setTitle("ERREUR");
+                    alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+                    alertError.showAndWait();
                 }
 
             } else {
@@ -38,10 +41,10 @@ public class LoginController {
             }
 
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("serveur non disponible verifier la connexion ");
-            alert.showAndWait();
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("serveur non disponible verifier la connexion ");
+            alertError.showAndWait();
         }
     }
 

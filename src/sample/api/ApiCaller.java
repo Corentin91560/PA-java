@@ -111,14 +111,14 @@ public class ApiCaller {
                                 jsonArray.getJSONObject(i).getString("content"),
                                 jsonArray.getJSONObject(i).getString("date"),
                                 "",
-                                jsonArray.getJSONObject(i).getString("plateform")));
+                                jsonArray.getJSONObject(i).getString("platform")));
                     } else {
                         bugList.add(new Feedback(jsonArray.getJSONObject(i).getInt("idfeedback"),
                                 jsonArray.getJSONObject(i).getString("title"),
                                 jsonArray.getJSONObject(i).getString("content"),
                                 jsonArray.getJSONObject(i).getString("date"),
                                 jsonArray.getJSONObject(i).getString("status"),
-                                jsonArray.getJSONObject(i).getString("plateform")));
+                                jsonArray.getJSONObject(i).getString("platform")));
                     }
                 }
                 conn.disconnect();
@@ -173,7 +173,7 @@ public class ApiCaller {
                                 jsonArray.getJSONObject(i).getString("content"),
                                 jsonArray.getJSONObject(i).getString("date"),
                                 jsonArray.getJSONObject(i).getInt("note"),
-                                jsonArray.getJSONObject(i).getString("plateform"),
+                                jsonArray.getJSONObject(i).getString("platform"),
                                 jsonArray.getJSONObject(i).getInt("iduser")));
                     } else {
                         improveList.add(new Feedback(
@@ -181,7 +181,7 @@ public class ApiCaller {
                                 jsonArray.getJSONObject(i).getString("date"),
                                 jsonArray.getJSONObject(i).getInt("note"),
                                 jsonArray.getJSONObject(i).getInt("idassociation"),
-                                jsonArray.getJSONObject(i).getString("plateform")
+                                jsonArray.getJSONObject(i).getString("platform")
                                 ));
                     }
                 }

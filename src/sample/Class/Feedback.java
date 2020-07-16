@@ -10,31 +10,31 @@ public class Feedback {
     private int idassociation;
     private int idadmin;
     private int iduser;
-    private String plateform;
+    private String platform;
 
-    public Feedback(String content, String date, int note, String plateform, int iduser) {
+    public Feedback(String content, String date, int note, String platform, int iduser) {
         this.content = content;
         this.date = date;
         this.note = note;
-        this.plateform = plateform;
+        this.platform = platform;
         this.iduser = iduser;
     }
 
-    public Feedback(String content, String date, int note, int idassociation, String plateform) {
+    public Feedback(String content, String date, int note, int idassociation, String platform) {
         this.content = content;
         this.date = date;
         this.note = note;
         this.idassociation = idassociation;
-        this.plateform = plateform;
+        this.platform = platform;
     }
 
-    public Feedback(int idfeedback, String title, String content, String date, String status, String plateform) {
+    public Feedback(int idfeedback, String title, String content, String date, String status, String platform) {
         this.idfeedback = idfeedback;
         this.title = title;
         this.content = content;
         this.date = date;
         this.status = status;
-        this.plateform = plateform;
+        this.platform = platform;
     }
 
     public int getNote() {
@@ -46,11 +46,11 @@ public class Feedback {
     }
 
     public String getPlateform() {
-        return plateform;
+        return platform;
     }
 
-    public void setPlateform(String plateform) {
-        this.plateform = plateform;
+    public void setPlateform(String platform) {
+        this.platform = platform;
     }
 
     public int getIdfe() {

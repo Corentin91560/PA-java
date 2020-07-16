@@ -1,22 +1,18 @@
 package sample.Class;
 
 public class Association {
-    private int idassociation;
+    private int idAssociation;
     private String name;
     private String logo;
     private String email;
     private String phone;
 
-    public Association(int idassociation) {
-        this.idassociation = idassociation;
+    public Association(int idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
-    public int getIdas() {
-        return idassociation;
-    }
-
-    public void setIdas(int idassociation) {
-        this.idassociation = idassociation;
+    public void setIdAssociation(int idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
     public String getName() {

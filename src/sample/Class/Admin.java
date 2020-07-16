@@ -4,21 +4,25 @@ public class Admin {
 
     private String login;
     private String password;
-    private int idadmin;
+    private int idAdmin;
     private String email;
     private String error;
 
-    public Admin(String login, String password, int idadmin, String email, String error) {
-        this.login = login;
-        this.password = password;
-        this.idadmin = idadmin;
-        this.email = email;
-        this.error = error;
+    public Admin() {
+
     }
 
     public Admin(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public Admin(String login, String password, int idAdmin, String email, String error) {
+        this.login = login;
+        this.password = password;
+        this.idAdmin = idAdmin;
+        this.email = email;
+        this.error = error;
     }
 
     public String getLogin() {
@@ -29,24 +33,12 @@ public class Admin {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public int getIda() {
-        return idadmin;
-    }
-
-    public void setIda(int idadmin) {
-        this.idadmin = idadmin;
-    }
-
-    public String getEmail() {
-        return email;
+    public void setIdAdmin(int idadmin) {
+        this.idAdmin = idadmin;
     }
 
     public void setEmail(String email) {

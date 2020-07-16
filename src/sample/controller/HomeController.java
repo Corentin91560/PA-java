@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Class.*;
+import sample.Tools;
 import sample.api.ApiCaller;
 
 import java.io.IOException;
@@ -19,42 +20,43 @@ import java.util.*;
 
 public class HomeController {
 
-    private List<Feedback> listimprove;
-    private int selected;
-    private int selectedimp;
-    private List<Feedback> listbug;
-    private Admin currentAdmin = LoginController.currentAdmin;
-    @FXML
-    private ListView<String> buglist;
-    @FXML
-    private ListView<String> improvelist;
-    @FXML
-    private TextField tftitlebug;
-    @FXML
-    private TextArea tfcontentbug;
-    @FXML
-    private TextField tfstatusbug;
-    @FXML
-    private TextField tfplatebug;
-    @FXML
-    private TextField tfnoteimp;
-    @FXML
-    private TextArea tfcontentimp;
-    @FXML
-    private TextField tfplateimp;
-    @FXML
-    private TextArea content_news_tf;
-    @FXML
-    private TextField title_news_tf;
-    @FXML
-    private Button btnaddtrello;
-    @FXML
-    private Button btnvalidate;
-    @FXML
-    private Button contactuserbtn;
+    private List<Feedback> ratingList;
+    private int selectedBugIndex;
+    private int selectedRatingIndex;
+    private List<Feedback> bugList;
+    private final Admin connectedAdmin = LoginController.connectedAdmin;
 
-    private ObservableList<String> observableBugList = FXCollections.observableArrayList();
-    private ObservableList<String> observableImproveList = FXCollections.observableArrayList();
+    @FXML
+    private ListView<String> bugListView;
+    @FXML
+    private TextField bugTitleTF;
+    @FXML
+    private TextArea bugContentTF;
+    @FXML
+    private TextField bugStatusTF;
+    @FXML
+    private TextField bugPlatformTF;
+    @FXML
+    private ListView<String> ratingListView;
+    @FXML
+    private TextField ratingNoteTF;
+    @FXML
+    private TextArea ratingContentTF;
+    @FXML
+    private TextField ratingPlatformTF;
+    @FXML
+    private TextArea newsContentTF;
+    @FXML
+    private TextField newsTitleTF;
+    @FXML
+    private Button addToTrelloButton;
+    @FXML
+    private Button validateButton;
+    @FXML
+    private Button contactUserButton;
+
+    private final ObservableList<String> observableBugList = FXCollections.observableArrayList();
+    private final ObservableList<String> observableRatingList = FXCollections.observableArrayList();
 
 
     public void initialize() {
@@ -64,66 +66,66 @@ public class HomeController {
     public void init() {
 
         ApiCaller caller = ApiCaller.getInstance();
-        listbug = caller.Returnbug();
+        bugList = caller.getBugs();
         int i = 0;
         observableBugList.clear();
 
-        while (i < listbug.size()) {
-            observableBugList.add(listbug.get(i).getDate().substring(0,10) + " - " + listbug.get(i).getTitle());
+        while (i < bugList.size()) {
+            observableBugList.add(bugList.get(i).getDate().substring(0,10) + " - " + bugList.get(i).getTitle());
             i += 1;
         }
 
-        buglist.setItems(observableBugList);
-        buglist.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        bugListView.setItems(observableBugList);
+        bugListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                selected = buglist.getSelectionModel().getSelectedIndices().get(0);
-                tfcontentbug.setText(listbug.get(selected).getContent());
-                tfstatusbug.setText(listbug.get(selected).getStatus());
+                selectedBugIndex = bugListView.getSelectionModel().getSelectedIndices().get(0);
+                bugContentTF.setText(bugList.get(selectedBugIndex).getContent());
+                bugStatusTF.setText(bugList.get(selectedBugIndex).getStatus());
 
-                if (listbug.get(selected).getStatus().equals("pending")) {
-                    btnaddtrello.setDisable(true);
-                    btnvalidate.setDisable(false);
+                if (bugList.get(selectedBugIndex).getStatus().equals("pending")) {
+                    addToTrelloButton.setDisable(true);
+                    validateButton.setDisable(false);
 
-                } else if (listbug.get(selected).getStatus().equals("validate")) {
-                    btnaddtrello.setDisable(true);
-                    btnvalidate.setDisable(true);
+                } else if (bugList.get(selectedBugIndex).getStatus().equals("validate")) {
+                    addToTrelloButton.setDisable(true);
+                    validateButton.setDisable(true);
 
                 } else {
-                    btnaddtrello.setDisable(false);
-                    btnvalidate.setDisable(true);
+                    addToTrelloButton.setDisable(false);
+                    validateButton.setDisable(true);
                 }
-                tftitlebug.setText(listbug.get(selected).getTitle() + " #" + listbug.get(selected).getIdfe());
-                tfplatebug.setText(listbug.get(selected).getPlateform());
+                bugTitleTF.setText(bugList.get(selectedBugIndex).getTitle() + " #" + bugList.get(selectedBugIndex).getIdfe());
+                bugPlatformTF.setText(bugList.get(selectedBugIndex).getPlatform());
             }
         });
 
-        listimprove = caller.Returnimprove();
+        ratingList = caller.getRatings();
         int j = 0;
-        observableImproveList.clear();
+        observableRatingList.clear();
 
-        while (j < listimprove.size()) {
-            observableImproveList.add(listimprove.get(j).getContent());
+        while (j < ratingList.size()) {
+            observableRatingList.add(ratingList.get(j).getContent());
             j = j + 1;
         }
-        improvelist.setItems(observableImproveList);
+        ratingListView.setItems(observableRatingList);
 
-        improvelist.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        ratingListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                contactuserbtn.setDisable(false);
-                selectedimp = improvelist.getSelectionModel().getSelectedIndices().get(0);
-                tfnoteimp.setText(String.valueOf(listimprove.get(selectedimp).getNote()));
-                tfcontentimp.setText(listimprove.get(selectedimp).getContent());
-                tfplateimp.setText(listimprove.get(selectedimp).getPlateform());
+                contactUserButton.setDisable(false);
+                selectedRatingIndex = ratingListView.getSelectionModel().getSelectedIndices().get(0);
+                ratingNoteTF.setText(String.valueOf(ratingList.get(selectedRatingIndex).getNote()));
+                ratingContentTF.setText(ratingList.get(selectedRatingIndex).getContent());
+                ratingPlatformTF.setText(ratingList.get(selectedRatingIndex).getPlatform());
             }
         });
     }
 
-    public void AddBugToTrello(ActionEvent actionEvent) {
-
+    public void addBugToTrello() {
         ApiCaller caller = ApiCaller.getInstance();
-        String information = caller.BugToTrello(currentAdmin, listbug.get(selected), tfcontentbug.getText());
+        String information = caller.BugToTrello(connectedAdmin, bugList.get(selectedBugIndex), bugContentTF.getText());
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText(information);
@@ -133,35 +135,28 @@ public class HomeController {
 
     public void Contact(ActionEvent actionEvent) {
         ApiCaller caller = ApiCaller.getInstance();
-        System.out.println(listimprove.get(selectedimp).getIdu());
 
-        if (listimprove.get(selectedimp).getIdu() == 0){
-            Association detailasso = caller.getAssoInfo(listimprove.get(selectedimp).getIdas());
-
+        if (ratingList.get(selectedRatingIndex).getIdu() == 0){
+            Association detailAsso = caller.getAssoInfo(ratingList.get(selectedRatingIndex).getIdas());
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../ressource/contactasso.fxml"));
-
                 Stage stage = new Stage();
+
                 stage.setTitle("Contact Association");
                 stage.setScene(new Scene(loader.load(), 300, 300));
                 ContactAssoController contactAssoController = loader.getController();
-                contactAssoController.transferMessage(detailasso);
+                contactAssoController.transferMessage(detailAsso);
                 stage.show();
             }
             catch (IOException e) {
-                Alert alertError = new Alert(Alert.AlertType.WARNING);
-                alertError.setTitle("ERREUR");
-                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-                alertError.showAndWait();
+                Tools.showError(e);
             }
-
         } else {
-            User detailuser = caller.getUserInfo(listimprove.get(selectedimp).getIdu());
-
+            User detailuser = caller.getUserInfo(ratingList.get(selectedRatingIndex).getIdu());
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../ressource/contactuser.fxml"));
-
                 Stage stage = new Stage();
+
                 stage.setTitle("Contact Utilisateur");
                 stage.setScene(new Scene(loader.load(), 300, 300));
                 ContactUserController contactController = loader.getController();
@@ -169,16 +164,13 @@ public class HomeController {
                 stage.show();
             }
             catch (IOException e) {
-                Alert alertError = new Alert(Alert.AlertType.WARNING);
-                alertError.setTitle("ERREUR");
-                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-                alertError.showAndWait();
+               Tools.showError(e);
             }
         }
     }
     public void ValidateBug(ActionEvent actionEvent) {
         ApiCaller caller = ApiCaller.getInstance();
-        String information = caller.validatebug(listbug.get(selected));
+        String information = caller.validatebug(bugList.get(selectedBugIndex));
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -204,22 +196,17 @@ public class HomeController {
                 controller.changeScene("../ressource/login.fxml", actionEvent);
 
             } catch (Exception e) {
-                Alert alertError = new Alert(Alert.AlertType.WARNING);
-                alertError.setTitle("ERREUR");
-                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-                alertError.showAndWait();
+                Tools.showError(e);
             }
         } else {
             alert.close();
         }
-
     }
 
-    public void SendNews(ActionEvent actionEvent) {
+    public void SendNews() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String datenow = formatter.format(new Date());
-
-        News news = new News(title_news_tf.getText(), content_news_tf.getText(),datenow);
+        String now = formatter.format(new Date());
+        News news = new News(newsTitleTF.getText(), newsContentTF.getText(), now);
 
         ApiCaller caller = ApiCaller.getInstance();
         String information = caller.AddNews(news);

@@ -1,23 +1,19 @@
 package sample.Class;
 
 public class User {
-    private int iduser;
+    private int idUser;
     private String name;
-    private String firstname;
+    private String firstName;
     private String email;
     private String phone;
-    private String profilpicture;
+    private String profilPicture;
 
-    public User(int iduser) {
-        this.iduser = iduser;
+    public User(int idUser) {
+        this.idUser = idUser;
     }
 
-    public int getIdu() {
-        return iduser;
-    }
-
-    public void setIdu(int iduser) {
-        this.iduser = iduser;
+    public void setIdUser(int iduser) {
+        this.idUser = iduser;
     }
 
     public String getName() {
@@ -28,12 +24,12 @@ public class User {
         this.name = name;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -52,20 +48,20 @@ public class User {
         this.phone = phone;
     }
 
-    public String getProfilpicture() {
-        return profilpicture;
+    public String getProfilPicture() {
+        return profilPicture;
     }
 
-    public void setProfilpicture(String profilpicture) {
-        this.profilpicture = profilpicture;
+    public void setProfilPicture(String profilPicture) {
+        this.profilPicture = profilPicture;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "iduser=" + iduser +
+                "iduser=" + idUser +
                 ", name='" + name + '\'' +
-                ", firstname='" + firstname + '\'' +
+                ", firstname='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';

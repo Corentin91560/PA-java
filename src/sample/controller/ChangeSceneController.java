@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import sample.Tools;
 
 class ChangeSceneController {
 
@@ -14,17 +15,14 @@ class ChangeSceneController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlfile));
             Parent root = fxmlLoader.load();
-            //<editor-fold desc="change scene from current stage">
             Node source = (Node) actionEvent.getSource();
             Stage currentStage = (Stage)source.getScene().getWindow();
+
             currentStage.setScene(new Scene(root));
             currentStage.show();
 
         } catch(Exception e) {
-            Alert alertError = new Alert(Alert.AlertType.WARNING);
-            alertError.setTitle("ERREUR");
-            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-            alertError.showAndWait();
+            Tools.showError(e);
         }
 
     }

@@ -9,27 +9,28 @@ import sample.Class.User;
 
 public class ContactUserController {
     @FXML
-    Label namecontact;
+    Label userNameLabel;
     @FXML
-    Label firstnamecontact;
+    Label userFirstnameLabel;
     @FXML
-    Label emailcontact;
+    Label userEmailLabel;
     @FXML
-    Label phonecontact;
+    Label userPhoneLabel;
     @FXML
-    ImageView imagecontact;
+    ImageView userPictureImageView;
 
     public void initialize() {
 
     }
 
     public void transferMessage(User user) {
-        namecontact.setText(user.getName());
-        firstnamecontact.setText(user.getFirstname());
-        emailcontact.setText(user.getEmail());
-        phonecontact.setText(user.getPhone());
-        Image image = new Image(user.getProfilpicture());
-        imagecontact.setImage(image);
+        Image image = new Image(user.getProfilPicture());
+
+        userNameLabel.setText(user.getName());
+        userFirstnameLabel.setText(user.getFirstName());
+        userEmailLabel.setText(user.getEmail());
+        userPhoneLabel.setText(user.getPhone());
+        userPictureImageView.setImage(image);
     }
 }
 

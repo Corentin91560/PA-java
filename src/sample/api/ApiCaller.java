@@ -7,7 +7,6 @@ import sample.Class.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -15,9 +14,10 @@ import java.util.List;
 
 public class ApiCaller {
 
-    private String apiUrl = "https://benevent-esgi.herokuapp.com/";
-
+    private final String apiUrl = "https://benevent-esgi.herokuapp.com/";
     private static ApiCaller instance;
+
+    private ApiCaller() {}
 
     public static ApiCaller getInstance() {
         if (instance == null) {
@@ -26,17 +26,13 @@ public class ApiCaller {
         return instance;
     }
 
-    private ApiCaller() {
-    }
-
-    public Admin signInAdmin(Admin admin) {
-
+    public Admin signInAdmin(String login, String password) {
+        Admin admin = new Admin();
         try {
-            String jsonInputString = "{\"login\": \"" + admin.getLogin() + "\", \"password\": \"" + admin.getPassword() + "\"}";
+            String jsonInputString = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
             URL url = new URL(apiUrl + "signin/admin");
-
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -58,11 +54,12 @@ public class ApiCaller {
                 in.close();
 
                 JSONObject myResponse = new JSONObject(response.toString());
+                admin.setLogin(login);
+                admin.setPassword(password);
                 admin.setEmail(myResponse.getString("email"));
-                admin.setIda(myResponse.getInt("idadmin"));
+                admin.setIdAdmin(myResponse.getInt("idadmin"));
 
                 conn.disconnect();
-
 
             } else if (conn.getResponseCode() == 401) {
                 admin.setError("Le login ou le mot de passe est incorrect");
@@ -70,13 +67,12 @@ public class ApiCaller {
                 admin.setError("L'application n'arrive pas à vous connecter.\nCode Erreur : " + conn.getResponseCode());
             }
         } catch (IOException e) {
-            admin.setError("L'application à rencontrer une erreur :\n" + e);
+            admin.setError("L'application a rencontré une erreur :\n" + e);
         }
-
         return admin;
     }
 
-    public List<Feedback> Returnbug() {
+    public List<Feedback> getBugs() {
         List<Feedback> bugList = new ArrayList<>();
         try {
 
@@ -141,7 +137,7 @@ public class ApiCaller {
         }
     }
 
-    public List<Feedback> Returnimprove() {
+    public List<Feedback> getRatings() {
         List<Feedback> improveList = new ArrayList<>();
         try {
 
@@ -220,12 +216,12 @@ public class ApiCaller {
         }
 
         try {
-            String jsonInputString = "{\"appli\": \"" + feedback.getPlateform() + "\", \"idfeedback\": \"" + feedback.getIdfe() + "\", \"key\": \"" + key + "\",\"token\": \"" + token + "\", \"name\": \"" + feedback.getTitle() + "\", \"desc\": \"" + content + "\", \"status\": \"pending\"}";
+            String jsonInputString = "{\"appli\": \"" + feedback.getPlatform() + "\", \"idfeedback\": \"" + feedback.getIdfe() + "\", \"key\": \"" + key + "\",\"token\": \"" + token + "\", \"name\": \"" + feedback.getTitle() + "\", \"desc\": \"" + content + "\", \"status\": \"pending\"}";
             URL url = new URL(apiUrl + "trello/feedback");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -252,7 +248,7 @@ public class ApiCaller {
             URL url = new URL(apiUrl + "feedback/" + feedback.getIdfe());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -280,7 +276,7 @@ public class ApiCaller {
             URL url = new URL(apiUrl + "user/detail/" + iduser);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
 
             if (conn.getResponseCode() == 200 ) {
@@ -303,14 +299,14 @@ public class ApiCaller {
                     user.setPhone("Non Renseigné");
                 }
                 if (myResponse.get("profilpicture") != JSONObject.NULL) {
-                    user.setProfilpicture(myResponse.getString("profilpicture"));
+                    user.setProfilPicture(myResponse.getString("profilpicture"));
                 } else {
-                    user.setProfilpicture("file:../ressource/images.jpg");
+                    user.setProfilPicture("file:../assets/basicProfilPicture.jpg");
                 }
                 user.setEmail(myResponse.getString("email"));
-                user.setFirstname(myResponse.getString("firstname"));
+                user.setFirstName(myResponse.getString("firstname"));
                 user.setName(myResponse.getString("name"));
-                user.setIdu(myResponse.getInt("iduser"));
+                user.setIdUser(myResponse.getInt("iduser"));
 
                 conn.disconnect();
 
@@ -341,7 +337,7 @@ public class ApiCaller {
             URL url = new URL(apiUrl + "association/details/" + idasso);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
 
             if (conn.getResponseCode() == 200) {
@@ -364,12 +360,12 @@ public class ApiCaller {
                 if (myResponse.get("logo")!=JSONObject.NULL) {
                     association.setLogo(myResponse.getString("logo"));
                 } else {
-                    association.setLogo("file:../ressource/images.jpg");
+                    association.setLogo("file:../assets/basicProfilPicture.jpg");
                 }
 
                 association.setEmail(myResponse.getString("email"));
                 association.setName(myResponse.getString("name"));
-                association.setIdas(myResponse.getInt("idassociation"));
+                association.setIdAssociation(myResponse.getInt("idassociation"));
 
                 conn.disconnect();
 
@@ -396,7 +392,7 @@ public class ApiCaller {
             URL url = new URL(apiUrl+"news");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(15000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -414,7 +410,7 @@ public class ApiCaller {
             }
 
         } catch (IOException e) {
-            return "L'application à rencontrer une erreur :\n" + e;
+            return "L'application a rencontré une erreur :\n" + e;
         }
     }
 }

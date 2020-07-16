@@ -11,30 +11,28 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import sample.Class.Feedback;
+import sample.Tools;
 import sample.api.ApiCaller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class StatController {
     @FXML
-    PieChart chartbug;
+    PieChart bugPieChart;
     @FXML
-    Label caption;
-    private int statuspending = 0;
-    private int statusvalidate = 0;
-    private int statusnottreated = 0;
+    PieChart ratingPieChart;
+    @FXML
+    Label bugElementCountLabel;
+    @FXML
+    Label ratingElementCountLabel;
 
-    @FXML
-    PieChart chartimp;
-    @FXML
-    Label captionimp;
-    private int note0 = 0;
-    private int note1 = 0;
-    private int note2 = 0;
-    private int note3 = 0;
-    private int note4 = 0;
-    private int note5 = 0;
+    private int pendingStatus = 0;
+    private int validateStatus = 0;
+    private int untreatedStatus = 0;
+    private final List<Integer> notes = Arrays.asList(0, 0, 0, 0, 0, 0);
 
     public void initialize() {
         SetChartDataBug();
@@ -42,128 +40,99 @@ public class StatController {
     }
 
     private void SetChartDataBug() {
-
         ApiCaller caller = ApiCaller.getInstance();
-        List<Feedback> listbug = caller.Returnbug();
+        List<Feedback> bugList = caller.getBugs();
         int i = 0;
-        while (i < listbug.size()) {
-            if (listbug.get(i).getStatus().equals("pending")) {
-                statuspending += 1;
-            }
-            if (listbug.get(i).getStatus().equals("validate")) {
-                statusvalidate += 1;
-            }
-            if (listbug.get(i).getStatus().equals("")) {
-                statusnottreated += 1;
-            }
+
+        while (i < bugList.size()) {
+            if (bugList.get(i).getStatus().equals("pending")) pendingStatus += 1;
+            if (bugList.get(i).getStatus().equals("validate")) validateStatus += 1;
+            if (bugList.get(i).getStatus().equals("")) untreatedStatus += 1;
             i = i + 1;
         }
 
-        PieChart.Data sliceNotTreated = new PieChart.Data("Non traité", statusnottreated);
-        PieChart.Data slicePending = new PieChart.Data("En cours", statuspending);
-        PieChart.Data sliceValidate = new PieChart.Data("Implementé", statusvalidate);
+        PieChart.Data sliceNotTreated = new PieChart.Data("Non traité", untreatedStatus);
+        PieChart.Data slicePending = new PieChart.Data("En cours", pendingStatus);
+        PieChart.Data sliceValidate = new PieChart.Data("Implementé", validateStatus);
 
-        if (statusnottreated > 0) {
-            chartbug.getData().add(sliceNotTreated);
-        }
-        if (statuspending > 0) {
-            chartbug.getData().add(slicePending);
-        }
-        if (statusvalidate > 0) {
-            chartbug.getData().add(sliceValidate);
-        }
+        if (untreatedStatus > 0) bugPieChart.getData().add(sliceNotTreated);
+        if (pendingStatus > 0) bugPieChart.getData().add(slicePending);
+        if (validateStatus > 0) bugPieChart.getData().add(sliceValidate);
 
-        chartbug.setLegendSide(Side.LEFT);
+        bugPieChart.setLegendSide(Side.LEFT);
+        bugElementCountLabel.setText("");
+        bugElementCountLabel.setTextFill(Color.BLACK);
 
-        caption.setText("");
-        caption.setTextFill(Color.BLACK);
-
-        for (final PieChart.Data data : chartbug.getData()) {
+        for (final PieChart.Data data : bugPieChart.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    caption.setTranslateX(e.getSceneX() - 150);
-                    caption.setTranslateY(e.getSceneY() - 100);
-                    caption.setText(String.valueOf((int) data.getPieValue()));
+                    bugElementCountLabel.setTranslateX(e.getSceneX() - 150);
+                    bugElementCountLabel.setTranslateY(e.getSceneY() - 100);
+                    bugElementCountLabel.setText(String.valueOf((int) data.getPieValue()));
                 }
             });
         }
-
     }
 
     private void SetChartDataimp() {
-
         ApiCaller caller = ApiCaller.getInstance();
-        List<Feedback> listimp = caller.Returnimprove();
+        List<Feedback> ratingList = caller.getRatings();
         int i = 0;
 
-        while (i < listimp.size()) {
-            if (listimp.get(i).getNote()==0) {
-                note0 += 1;
+        while (i < ratingList.size()) {
+            if (ratingList.get(i).getNote() == 0) {
+                notes.set(0, notes.get(0) + 1);
             }
-            if (listimp.get(i).getNote()==1) {
-                note1 += 1;
+            if (ratingList.get(i).getNote()==1) {
+                notes.set(1, notes.get(1) + 1);
             }
-            if (listimp.get(i).getNote()==2) {
-                note2 += 1;
+            if (ratingList.get(i).getNote()==2) {
+                notes.set(2, notes.get(2) + 1);
             }
-            if (listimp.get(i).getNote()==3) {
-                note3 += 1;
+            if (ratingList.get(i).getNote()==3) {
+                notes.set(3, notes.get(3) + 1);
             }
-            if (listimp.get(i).getNote()==4) {
-                note4 += 1;
+            if (ratingList.get(i).getNote()==4) {
+                notes.set(4, notes.get(4) + 1);
             }
-            if (listimp.get(i).getNote()==5) {
-                note5 += 1;
+            if (ratingList.get(i).getNote()==5) {
+                notes.set(5, notes.get(5) + 1);
             }
-            i = i + 1;
+            i += 1;
         }
 
-        PieChart.Data slice0 = new PieChart.Data("0 Etoile", note0);
-        PieChart.Data slice1 = new PieChart.Data("1 Etoile", note1);
-        PieChart.Data slice2 = new PieChart.Data("2 Etoiles", note2);
-        PieChart.Data slice3 = new PieChart.Data("3 Etoiles", note3);
-        PieChart.Data slice4 = new PieChart.Data("4 Etoiles", note4);
-        PieChart.Data slice5 = new PieChart.Data("5 Etoiles", note5);
+        PieChart.Data slice0 = new PieChart.Data("0 / 5 Etoile", notes.get(0));
+        PieChart.Data slice1 = new PieChart.Data("1 / 5 Etoile", notes.get(1));
+        PieChart.Data slice2 = new PieChart.Data("2 / 5 Etoiles", notes.get(2));
+        PieChart.Data slice3 = new PieChart.Data("3 / 5 Etoiles", notes.get(3));
+        PieChart.Data slice4 = new PieChart.Data("4 / 5 Etoiles", notes.get(4));
+        PieChart.Data slice5 = new PieChart.Data("5 / 5 Etoiles", notes.get(5));
 
-        if (note0 > 0) {
-            chartimp.getData().add(slice0);
-        }
-        if (note1 > 0) {
-            chartimp.getData().add(slice1);
-        }
-        if (note2 > 0) {
-            chartimp.getData().add(slice2);
-        }
-        if (note3 > 0) {
-            chartimp.getData().add(slice3);
-        }
-        if (note4 > 0) {
-            chartimp.getData().add(slice4);
-        }
-        if (note5 > 0) {
-            chartimp.getData().add(slice5);
-        }
+        if (notes.get(0) > 0) ratingPieChart.getData().add(slice0);
+        if (notes.get(1) > 0) ratingPieChart.getData().add(slice1);
+        if (notes.get(2) > 0) ratingPieChart.getData().add(slice2);
+        if (notes.get(3) > 0) ratingPieChart.getData().add(slice3);
+        if (notes.get(4) > 0) ratingPieChart.getData().add(slice4);
+        if (notes.get(5) > 0) ratingPieChart.getData().add(slice5);
 
-        chartimp.setLegendSide(Side.LEFT);
+        ratingPieChart.setLegendSide(Side.LEFT);
+        ratingElementCountLabel.setText("");
+        ratingElementCountLabel.setTextFill(Color.BLACK);
 
-        captionimp.setText("");
-        captionimp.setTextFill(Color.BLACK);
-
-        for (final PieChart.Data data : chartimp.getData()) {
+        for (final PieChart.Data data : ratingPieChart.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    captionimp.setTranslateX(e.getSceneX() - 150);
-                    captionimp.setTranslateY(e.getSceneY() - 100);
-                    captionimp.setText(String.valueOf((int) data.getPieValue()));
+                    ratingElementCountLabel.setTranslateX(e.getSceneX() - 150);
+                    ratingElementCountLabel.setTranslateY(e.getSceneY() - 100);
+                    ratingElementCountLabel.setText(String.valueOf((int) data.getPieValue()));
                 }
             });
         }
     }
 
     public void Disconnect(ActionEvent actionEvent) {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
         alert.setHeaderText("Etes vous sur de vouloir vous déconnecter ?");
@@ -175,15 +144,11 @@ public class StatController {
                 controller.changeScene("../ressource/login.fxml", actionEvent);
 
             } catch (Exception e) {
-                Alert alertError = new Alert(Alert.AlertType.WARNING);
-                alertError.setTitle("ERREUR");
-                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-                alertError.showAndWait();
+                Tools.showError(e);
             }
         } else {
             alert.close();
         }
-
     }
 
     public void GoToHome(ActionEvent actionEvent) {

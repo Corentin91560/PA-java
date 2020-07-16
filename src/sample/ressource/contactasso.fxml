@@ -10,10 +10,10 @@
             fx:controller="sample.controller.ContactAssoController"
             prefHeight="300.0" prefWidth="300.0">
     <children>
-        <Label fx:id="nameassocontact" layoutX="72.0" layoutY="142.0" text="Label" />
-        <Label fx:id="emailassocontact" layoutX="72.0" layoutY="190.0" text="Label" />
-        <Label fx:id="phoneassocontact" layoutX="72.0" layoutY="240.0" text="Label" />
-        <ImageView fx:id="logoassocontact" fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="assoNameLabel" layoutX="72.0" layoutY="142.0" text="Label" />
+        <Label fx:id="assoEmailLabel" layoutX="72.0" layoutY="190.0" text="Label" />
+        <Label fx:id="assoPhoneLabel" layoutX="72.0" layoutY="240.0" text="Label" />
+        <ImageView fx:id="assoLogoImageView" fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
         <Label layoutX="136.0" layoutY="56.0" />
     </children>
 

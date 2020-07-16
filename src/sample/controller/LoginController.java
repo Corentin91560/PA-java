@@ -4,52 +4,38 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sample.Class.Admin;
+import sample.Tools;
 import sample.api.ApiCaller;
 
 public class LoginController {
 
-    static Admin currentAdmin;
+    static Admin connectedAdmin;
 
     @FXML
-    private TextField login_tf;
+    private TextField loginTF;
     @FXML
-    private PasswordField password_tf;
+    private PasswordField passwordTF;
     @FXML
-    private Label labelerror;
+    private Label errorLabel;
 
     public void connect(ActionEvent actionEvent) {
-        Admin tryAdmin = new Admin(login_tf.getText(), password_tf.getText());
-
         try {
             ApiCaller caller = ApiCaller.getInstance();
-            setCurrentAdmin(caller.signInAdmin(tryAdmin));
-            if (currentAdmin.getError() == null) {
-
+            LoginController.connectedAdmin = caller.signInAdmin(loginTF.getText(), passwordTF.getText());
+            if (connectedAdmin.getError() == null) {
                 try {
                     ChangeSceneController controller = new ChangeSceneController();
                     controller.changeScene("../ressource/home.fxml", actionEvent);
 
                 } catch (Exception e) {
-                    Alert alertError = new Alert(Alert.AlertType.WARNING);
-                    alertError.setTitle("ERREUR");
-                    alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
-                    alertError.showAndWait();
+                    Tools.showError(e);
                 }
-
             } else {
-                labelerror.setVisible(true);
+                errorLabel.setVisible(true);
             }
 
         } catch (Exception e) {
-            Alert alertError = new Alert(Alert.AlertType.WARNING);
-            alertError.setTitle("ERREUR");
-            alertError.setHeaderText("serveur non disponible verifier la connexion ");
-            alertError.showAndWait();
+           Tools.showError(e);
         }
     }
-
-    private void setCurrentAdmin(Admin currentAdmin) {
-        LoginController.currentAdmin = currentAdmin;
-    }
-
 }

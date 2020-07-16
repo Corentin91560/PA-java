@@ -1,35 +1,35 @@
 package sample.Class;
 
 public class Feedback {
-    private int idfeedback;
+    private int idFeedback;
     private String title;
     private String content;
     private String date;
     private String status;
     private int note;
-    private int idassociation;
-    private int idadmin;
-    private int iduser;
     private String platform;
+    private int idAssociation;
+    private int idAdmin;
+    private int idUser;
 
-    public Feedback(String content, String date, int note, String platform, int iduser) {
+    public Feedback(String content, String date, int note, String platform, int idUser) {
         this.content = content;
         this.date = date;
         this.note = note;
         this.platform = platform;
-        this.iduser = iduser;
+        this.idUser = idUser;
     }
 
-    public Feedback(String content, String date, int note, int idassociation, String platform) {
+    public Feedback(String content, String date, int note, int idAssociation, String platform) {
         this.content = content;
         this.date = date;
         this.note = note;
-        this.idassociation = idassociation;
+        this.idAssociation = idAssociation;
         this.platform = platform;
     }
 
-    public Feedback(int idfeedback, String title, String content, String date, String status, String platform) {
-        this.idfeedback = idfeedback;
+    public Feedback(int idFeedback, String title, String content, String date, String status, String platform) {
+        this.idFeedback = idFeedback;
         this.title = title;
         this.content = content;
         this.date = date;
@@ -41,79 +41,36 @@ public class Feedback {
         return note;
     }
 
-    public void setNote(int note) {
-        this.note = note;
-    }
-
-    public String getPlateform() {
+    public String getPlatform() {
         return platform;
     }
 
-    public void setPlateform(String platform) {
-        this.platform = platform;
-    }
-
     public int getIdfe() {
-        return idfeedback;
+        return idFeedback;
     }
-
-    public void setIdfe(int idfeedback) {
-        this.idfeedback = idfeedback;
-    }
-
+    
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public int getIdas() {
-        return idassociation;
-    }
-
-    public void setIdas(int idassociation) {
-        this.idassociation = idassociation;
-    }
-
-    public int getIda() {
-        return idadmin;
-    }
-
-    public void setIda(int idadmin) {
-        this.idadmin = idadmin;
+        return idAssociation;
     }
 
     public int getIdu() {
-        return iduser;
+        return idUser;
     }
 
-    public void setIdu(int iduser) {
-        this.iduser = iduser;
-    }
 }

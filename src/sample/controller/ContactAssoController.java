@@ -8,24 +8,25 @@ import sample.Class.Association;
 
 public class ContactAssoController {
     @FXML
-    Label nameassocontact;
+    Label assoNameLabel;
     @FXML
-    Label emailassocontact;
+    Label assoEmailLabel;
     @FXML
-    Label phoneassocontact;
+    Label assoPhoneLabel;
     @FXML
-    ImageView logoassocontact;
+    ImageView assoLogoImageView;
 
     public void initialize() {
 
     }
 
     public void transferMessage(Association association) {
-        nameassocontact.setText(association.getName());
-        emailassocontact.setText(association.getEmail());
-        phoneassocontact.setText(association.getPhone());
         Image image = new Image(association.getLogo());
-        logoassocontact.setImage(image);
+
+        assoNameLabel.setText(association.getName());
+        assoEmailLabel.setText(association.getEmail());
+        assoPhoneLabel.setText(association.getPhone());
+        assoLogoImageView.setImage(image);
     }
 
 

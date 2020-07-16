@@ -42,8 +42,8 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="561.0">
                            <children>
-                               <PieChart fx:id="chartbug" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
-                               <Label fx:id="caption" layoutX="4.0" text="test" />
+                               <PieChart fx:id="bugPieChart" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
+                               <Label fx:id="bugElementCountLabel" layoutX="4.0" text="test" />
                            </children></AnchorPane>
                             </content>
                         </Tab>
@@ -51,8 +51,8 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <PieChart fx:id="chartimp" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
-                              <Label fx:id="captionimp" layoutX="4.0" text="test" />
+                                        <PieChart fx:id="ratingPieChart" layoutX="7.0" layoutY="1.0" prefHeight="386.0" prefWidth="687.0" style="-fx-background-color: #FFFFFF;" />
+                              <Label fx:id="ratingElementCountLabel" layoutX="4.0" text="test" />
                                     </children></AnchorPane>
                             </content>
                         </Tab>

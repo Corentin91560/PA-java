@@ -67,6 +67,7 @@ public class HomeController {
         listbug = caller.Returnbug();
         int i = 0;
         observableBugList.clear();
+
         while (i < listbug.size()) {
             observableBugList.add(listbug.get(i).getDate().substring(0,10) + " - " + listbug.get(i).getTitle());
             i += 1;
@@ -79,9 +80,15 @@ public class HomeController {
                 selected = buglist.getSelectionModel().getSelectedIndices().get(0);
                 tfcontentbug.setText(listbug.get(selected).getContent());
                 tfstatusbug.setText(listbug.get(selected).getStatus());
-                if (listbug.get(selected).getStatus().equals("pending") || listbug.get(selected).getStatus().equals("validate")) {
+
+                if (listbug.get(selected).getStatus().equals("pending")) {
                     btnaddtrello.setDisable(true);
                     btnvalidate.setDisable(false);
+
+                } else if (listbug.get(selected).getStatus().equals("validate")) {
+                    btnaddtrello.setDisable(true);
+                    btnvalidate.setDisable(true);
+
                 } else {
                     btnaddtrello.setDisable(false);
                     btnvalidate.setDisable(true);
@@ -94,6 +101,7 @@ public class HomeController {
         listimprove = caller.Returnimprove();
         int j = 0;
         observableImproveList.clear();
+
         while (j < listimprove.size()) {
             observableImproveList.add(listimprove.get(j).getContent());
             j = j + 1;
@@ -129,6 +137,7 @@ public class HomeController {
 
         if (listimprove.get(selectedimp).getIdu() == 0){
             Association detailasso = caller.getAssoInfo(listimprove.get(selectedimp).getIdas());
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../ressource/contactasso.fxml"));
 
@@ -140,7 +149,10 @@ public class HomeController {
                 stage.show();
             }
             catch (IOException e) {
-                e.printStackTrace();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+                alertError.showAndWait();
             }
 
         } else {
@@ -157,15 +169,19 @@ public class HomeController {
                 stage.show();
             }
             catch (IOException e) {
-                e.printStackTrace();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+                alertError.showAndWait();
             }
         }
     }
     public void ValidateBug(ActionEvent actionEvent) {
         ApiCaller caller = ApiCaller.getInstance();
         String information = caller.validatebug(listbug.get(selected));
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Information");
         alert.setHeaderText(information);
         alert.showAndWait();
         init();
@@ -178,16 +194,20 @@ public class HomeController {
 
     public void Disconnect(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Déconnexion");
-        alert.setContentText("Etes vous sur de vouloir vous déconnecter ?");
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText("Etes vous sur de vouloir vous déconnecter ?");
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.get() == ButtonType.OK) {
             try {
                 ChangeSceneController controller = new ChangeSceneController();
                 controller.changeScene("../ressource/login.fxml", actionEvent);
+
             } catch (Exception e) {
-                e.printStackTrace();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+                alertError.showAndWait();
             }
         } else {
             alert.close();
@@ -199,12 +219,12 @@ public class HomeController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String datenow = formatter.format(new Date());
 
-        News news = new News(title_news_tf.getText(),content_news_tf.getText(),datenow);
+        News news = new News(title_news_tf.getText(), content_news_tf.getText(),datenow);
 
         ApiCaller caller = ApiCaller.getInstance();
         String information = caller.AddNews(news);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Information");
         alert.setHeaderText(information);
         alert.showAndWait();
     }

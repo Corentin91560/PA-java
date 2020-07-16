@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ressource/login.fxml"));
         primaryStage.setTitle("BENEVENT ADMIN");
         primaryStage.setScene(new Scene(root, 600, 400));

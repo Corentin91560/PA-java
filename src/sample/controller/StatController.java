@@ -96,6 +96,7 @@ public class StatController {
         ApiCaller caller = ApiCaller.getInstance();
         List<Feedback> listimp = caller.Returnimprove();
         int i = 0;
+
         while (i < listimp.size()) {
             if (listimp.get(i).getNote()==0) {
                 note0 += 1;
@@ -164,17 +165,20 @@ public class StatController {
     public void Disconnect(ActionEvent actionEvent) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Déconnexion");
-        alert.setContentText("Etes vous sur de vouloir vous déconnecter ?");
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText("Etes vous sur de vouloir vous déconnecter ?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
             try {
                 ChangeSceneController controller = new ChangeSceneController();
                 controller.changeScene("../ressource/login.fxml", actionEvent);
+
             } catch (Exception e) {
-                e.printStackTrace();
+                Alert alertError = new Alert(Alert.AlertType.WARNING);
+                alertError.setTitle("ERREUR");
+                alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+                alertError.showAndWait();
             }
         } else {
             alert.close();

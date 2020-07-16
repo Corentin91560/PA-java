@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 class ChangeSceneController {
@@ -20,7 +21,10 @@ class ChangeSceneController {
             currentStage.show();
 
         } catch(Exception e) {
-            e.printStackTrace();
+            Alert alertError = new Alert(Alert.AlertType.WARNING);
+            alertError.setTitle("ERREUR");
+            alertError.setHeaderText("L'application à rencontrer une erreur :\n" + e);
+            alertError.showAndWait();
         }
 
     }

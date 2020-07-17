@@ -70,8 +70,8 @@
                               <Label layoutX="290.0" layoutY="31.0" text="Titre" />
                               <Label layoutX="292.0" layoutY="151.0" text="Contenu" />
                               <Label layoutX="290.0" layoutY="309.0" text="Plateforme" />
-                              <Button fx:id="addToTrelloButton" disable="true" layoutX="501.0" layoutY="362.0" mnemonicParsing="false" onAction="#addBugToTrello" prefHeight="24.0" prefWidth="126.0" text="Ajouter a Trello" />
-                              <Label layoutX="299.0" layoutY="268.0" text="Status" />
+                              <Button fx:id="addToTrelloButton" disable="true" layoutX="501.0" layoutY="362.0" mnemonicParsing="false" onAction="#addBugToTrello" prefHeight="24.0" prefWidth="126.0" text="Ajouter à Trello" />
+                              <Label layoutX="299.0" layoutY="268.0" text="Statut" />
                               <TextField fx:id="bugStatusTF" disable="true" layoutX="364.0" layoutY="264.0" prefHeight="25.0" prefWidth="290.0" />
                               <Button fx:id="validateButton" disable="true" layoutX="391.0" layoutY="362.0" mnemonicParsing="false" onAction="#ValidateBug" text="Valider" />
                            </children></AnchorPane>

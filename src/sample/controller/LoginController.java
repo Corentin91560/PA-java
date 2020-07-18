@@ -8,9 +8,7 @@ import sample.Tools;
 import sample.api.ApiCaller;
 
 public class LoginController {
-
     static Admin connectedAdmin;
-
     @FXML
     private TextField loginTF;
     @FXML

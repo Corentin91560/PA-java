@@ -3,13 +3,12 @@ package sample.Class;
 public class Feedback {
     private int idFeedback;
     private String title;
-    private String content;
-    private String date;
+    private final String content;
+    private final String date;
     private String status;
     private int note;
-    private String platform;
+    private final String platform;
     private int idAssociation;
-    private int idAdmin;
     private int idUser;
 
     public Feedback(String content, String date, int note, String platform, int idUser) {

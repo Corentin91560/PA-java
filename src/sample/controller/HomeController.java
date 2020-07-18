@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HomeController {
-
     private List<Feedback> ratingList;
     private int selectedBugIndex;
     private int selectedRatingIndex;
@@ -59,7 +58,6 @@ public class HomeController {
 
     private final ObservableList<String> observableBugList = FXCollections.observableArrayList();
     private final ObservableList<String> observableRatingList = FXCollections.observableArrayList();
-
 
     public void initialize() {
         init();

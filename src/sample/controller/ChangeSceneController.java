@@ -20,11 +20,8 @@ class ChangeSceneController {
 
             currentStage.setScene(new Scene(root));
             currentStage.show();
-
         } catch(Exception e) {
             Tools.showError(e);
         }
-
     }
-
 }

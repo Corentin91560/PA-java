@@ -43,22 +43,6 @@ public class ApiCaller {
             os.close();
 
             if (conn.getResponseCode() == 200) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-
-                in.close();
-
-                JSONObject myResponse = new JSONObject(response.toString());
-                admin.setLogin(login);
-                admin.setPassword(password);
-                admin.setEmail(myResponse.getString("email"));
-                admin.setIdAdmin(myResponse.getInt("idadmin"));
-
                 conn.disconnect();
 
             } else if (conn.getResponseCode() == 401) {
@@ -338,7 +322,7 @@ public class ApiCaller {
 
     public Association getAssoInfo(int idasso) {
 
-        Association association = new Association(idasso);
+        Association association = new Association();
 
         try {
             URL url = new URL(apiUrl + "association/details/" + idasso);
@@ -372,7 +356,6 @@ public class ApiCaller {
 
                 association.setEmail(myResponse.getString("email"));
                 association.setName(myResponse.getString("name"));
-                association.setIdAssociation(myResponse.getInt("idassociation"));
 
                 conn.disconnect();
 

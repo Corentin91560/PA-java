@@ -1,11 +1,9 @@
 package sample.Class;
 
-import java.util.Date;
-
 public class News {
-    private String title;
-    private String content;
-    private String date;
+    private final String title;
+    private final String content;
+    private final String date;
 
     public News(String title, String content, String date) {
         this.title = title;
@@ -17,23 +15,11 @@ public class News {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 }

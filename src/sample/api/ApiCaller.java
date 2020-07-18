@@ -423,6 +423,8 @@ public class ApiCaller {
             if (conn.getResponseCode() == 200 ) {
                 conn.disconnect();
                 return "Votre categorie a bien été implémenté";
+            } else if (conn.getResponseCode() == 400) {
+                return "La categorie existe déjà.";
             } else {
                 return "L'application n'arrive pas à publier votre categorie.\nCode Erreur : " + conn.getResponseCode();
             }

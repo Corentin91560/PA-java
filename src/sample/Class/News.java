@@ -3,9 +3,9 @@ package sample.Class;
 import java.util.Date;
 
 public class News {
-    String title;
-    String content;
-    String date;
+    private String title;
+    private String content;
+    private String date;
 
     public News(String title, String content, String date) {
         this.title = title;

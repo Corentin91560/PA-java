@@ -393,10 +393,10 @@ public class ApiCaller {
     }
 
     public String AddNews(News news) {
-        String jsonInputString = "{\"title\": \""+news.getTitle() + "\", \"content\": \"" + news.getContent()+"\", \"date\": \"" + news.getDate() + "\"}";
+        String jsonInputString = "{\"title\": \"" + news.getTitle() + "\", \"content\": \"" + news.getContent()+"\", \"date\": \"" + news.getDate() + "\"}";
 
         try {
-            URL url = new URL(apiUrl+"news");
+            URL url = new URL(apiUrl + "news");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(15000);
@@ -414,6 +414,34 @@ public class ApiCaller {
                 return "Votre message a bien été implémenté";
             } else {
                 return "L'application n'arrive pas à publier votre message.\nCode Erreur : " + conn.getResponseCode();
+            }
+
+        } catch (IOException e) {
+            return "L'application a rencontré une erreur :\n" + e;
+        }
+    }
+
+    public String AddCategory(Category category) {
+        String jsonInputString = "{\"name\": \"" + category.getName() + "\"}";
+
+        try {
+            URL url = new URL(apiUrl + "category");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(15000);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("POST");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(jsonInputString.getBytes(StandardCharsets.UTF_8));
+            os.close();
+            if (conn.getResponseCode() == 200 ) {
+                conn.disconnect();
+                return "Votre categorie a bien été implémenté";
+            } else {
+                return "L'application n'arrive pas à publier votre categorie.\nCode Erreur : " + conn.getResponseCode();
             }
 
         } catch (IOException e) {

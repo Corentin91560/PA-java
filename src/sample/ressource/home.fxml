@@ -92,6 +92,17 @@
                            </children></AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Categorie">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                              <children>
+                                  <Label layoutX="14.0" layoutY="46.0" text="Nom" />
+                                  <TextField fx:id="categoryNameTF" layoutX="69.0" layoutY="39.0" prefHeight="30.0" prefWidth="615.0" />
+                                  <Button layoutX="324.0" layoutY="357.0" mnemonicParsing="false" onAction="#sendCategory" text="Ajouter" />
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </Tab>
                   <Tab text="Actualité">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">

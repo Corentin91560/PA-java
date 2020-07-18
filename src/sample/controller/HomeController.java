@@ -45,6 +45,8 @@ public class HomeController {
     @FXML
     private TextField ratingPlatformTF;
     @FXML
+    private TextField categoryNameTF;
+    @FXML
     private TextArea newsContentTF;
     @FXML
     private TextField newsTitleTF;
@@ -117,9 +119,7 @@ public class HomeController {
                 ratingNoteTF.setText(String.valueOf(ratingList.get(selectedRatingIndex).getNote()));
                 ratingContentTF.setText(ratingList.get(selectedRatingIndex).getContent());
                 ratingPlatformTF.setText(ratingList.get(selectedRatingIndex).getPlatform());
-                contactUserButton.setDisable(true);
-                if(!ratingList.get(selectedRatingIndex).getPlatform().equals("FLUTTER")) contactUserButton.setDisable(false);
-
+                contactUserButton.setDisable(false);
             }
         });
     }
@@ -146,6 +146,7 @@ public class HomeController {
 
                 stage.setTitle("Contact Association");
                 stage.setScene(new Scene(loader.load(), 300, 300));
+                stage.setResizable(false);
                 ContactAssoController contactAssoController = loader.getController();
                 contactAssoController.transferMessage(detailAsso);
                 stage.show();
@@ -161,6 +162,7 @@ public class HomeController {
 
                 stage.setTitle("Contact Utilisateur");
                 stage.setScene(new Scene(loader.load(), 300, 300));
+                stage.setResizable(false);
                 ContactUserController contactController = loader.getController();
                 contactController.transferMessage(detailuser);
                 stage.show();
@@ -210,11 +212,37 @@ public class HomeController {
         String now = formatter.format(new Date());
         News news = new News(newsTitleTF.getText(), newsContentTF.getText(), now);
 
-        ApiCaller caller = ApiCaller.getInstance();
-        String information = caller.AddNews(news);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(information);
-        alert.showAndWait();
+        if(newsTitleTF.getText().isEmpty() || newsContentTF.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attention !");
+            alert.setHeaderText("Veuillez remplir tout les champs !");
+            alert.showAndWait();
+        } else {
+            ApiCaller caller = ApiCaller.getInstance();
+            String information = caller.AddNews(news);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(information);
+            alert.showAndWait();
+        }
+    }
+
+    public void sendCategory() {
+        Category category = new Category(categoryNameTF.getText());
+
+        if(categoryNameTF.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attention !");
+            alert.setHeaderText("Veuillez entrez un nom de categorie !");
+            alert.showAndWait();
+        } else {
+            ApiCaller caller = ApiCaller.getInstance();
+            String information = caller.AddCategory(category);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(information);
+            alert.showAndWait();
+        }
+
     }
 }

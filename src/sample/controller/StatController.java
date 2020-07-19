@@ -141,7 +141,7 @@ public class StatController {
         if (result.get() == ButtonType.OK) {
             try {
                 ChangeSceneController controller = new ChangeSceneController();
-                controller.changeScene("../ressource/login.fxml", actionEvent);
+                controller.changeScene("/sample/ressource/login.fxml", actionEvent);
 
             } catch (Exception e) {
                 Tools.showError(e);

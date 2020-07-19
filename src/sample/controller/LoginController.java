@@ -23,7 +23,7 @@ public class LoginController {
             if (connectedAdmin.getError() == null) {
                 try {
                     ChangeSceneController controller = new ChangeSceneController();
-                    controller.changeScene("../ressource/home.fxml", actionEvent);
+                    controller.changeScene("/sample/ressource/home.fxml", actionEvent);
 
                 } catch (Exception e) {
                     Tools.showError(e);
